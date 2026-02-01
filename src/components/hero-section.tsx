@@ -54,8 +54,8 @@ const logos = [
 
 export default function HeroSection() {
   return (
-    <div className="bg-black relative flex h-screen min-h-dvh w-full flex-col gap-9 overflow-y-auto p-4 md:gap-12 md:px-10 md:py-[34px]">
-      <main className="bg-hero-section-centered-navbar flex flex-col items-center rounded-2xl px-3 md:rounded-3xl md:px-0">
+    <>
+      <main className="bg-gradient-1 flex flex-col items-center rounded-2xl px-3 md:rounded-3xl md:px-0">
         <section className="my-14 mt-16 flex flex-col items-center justify-center gap-6">
           <CenteredNavbar />
           <Button
@@ -113,6 +113,6 @@ export default function HeroSection() {
           ))}
         </ScrollingBanner>
       </div>
-    </div>
+    </>
   );
 }
