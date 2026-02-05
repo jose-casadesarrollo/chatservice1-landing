@@ -1,0 +1,47 @@
+{
+  "metadata": {
+    "title": "ChatService1 Landing",
+    "description": "Moderne Chat-Service-Landingpage erstellt mit HeroUI"
+  },
+  "nav": {
+    "brand": "ACME",
+    "home": "Startseite",
+    "features": "Funktionen",
+    "customers": "Kunden",
+    "aboutUs": "Über Uns",
+    "signIn": "Anmelden",
+    "getStarted": "Loslegen"
+  },
+  "hero": {
+    "badge": "Neues Onboarding-Erlebnis",
+    "title": "Der einfachste Weg, globale Teams zu stärken.",
+    "description": "Acme macht die Führung globaler Teams einfach. HR, Gehaltsabrechnung, Internationale Beschäftigung, Auftragnehmer-Management und mehr.",
+    "getStarted": "Loslegen",
+    "seePlans": "Pläne ansehen"
+  },
+  "sections": {
+    "features": "Funktionen Bereich",
+    "howItWorks": "So Funktioniert Es Bereich",
+    "testimonials": "Kundenstimmen Bereich",
+    "pricing": "Preise Bereich",
+    "faq": "FAQ Bereich",
+    "cta": "CTA Bereich"
+  },
+  "howItWorks": {
+    "label": "So Funktioniert Es",
+    "title": "Starten Sie in drei einfachen Schritten",
+    "subtitle": "Von der Anmeldung zum Live-Chat in wenigen Minuten. Keine komplexe Einrichtung, keine Programmierkenntnisse erforderlich.",
+    "step1": {
+      "title": "Erstellen Sie Ihr Konto",
+      "description": "Registrieren Sie sich und durchlaufen Sie unser geführtes Onboarding. Konfigurieren Sie die Persönlichkeit, Wissensbasis und Antwortpräferenzen Ihres KI-Agenten mit nur wenigen Klicks."
+    },
+    "step2": {
+      "title": "Binden Sie das Skript ein",
+      "description": "Kopieren Sie eine einzelne Codezeile und fügen Sie sie in Ihre Website ein. Unser leichtgewichtiges Skript lädt asynchron und beeinträchtigt die Leistung Ihrer Seite nicht."
+    },
+    "step3": {
+      "title": "Anpassen und Starten",
+      "description": "Passen Sie das Erscheinungsbild Ihres Chat-Widgets an Ihre Marke an. Trainieren Sie Ihren KI-Agenten mit Ihren FAQs und Dokumentationen und gehen Sie sofort live."
+    }
+  }
+}

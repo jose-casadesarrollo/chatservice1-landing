@@ -1,0 +1,47 @@
+{
+  "metadata": {
+    "title": "ChatService1 Landing",
+    "description": "Página de aterrizaje moderna para servicio de chat construida con HeroUI"
+  },
+  "nav": {
+    "brand": "ACME",
+    "home": "Inicio",
+    "features": "Características",
+    "customers": "Clientes",
+    "aboutUs": "Nosotros",
+    "signIn": "Iniciar Sesión",
+    "getStarted": "Comenzar"
+  },
+  "hero": {
+    "badge": "Nueva experiencia de incorporación",
+    "title": "La forma más fácil de potenciar equipos globales.",
+    "description": "Acme simplifica la gestión de equipos globales. RRHH, Nómina, Empleo Internacional, gestión de contratistas y más.",
+    "getStarted": "Comenzar",
+    "seePlans": "Ver planes"
+  },
+  "sections": {
+    "features": "Sección de Características",
+    "howItWorks": "Sección Cómo Funciona",
+    "testimonials": "Sección de Testimonios",
+    "pricing": "Sección de Precios",
+    "faq": "Sección de Preguntas Frecuentes",
+    "cta": "Sección de Llamada a la Acción"
+  },
+  "howItWorks": {
+    "label": "Cómo Funciona",
+    "title": "Comienza en tres simples pasos",
+    "subtitle": "Del registro al chat en vivo en minutos. Sin configuración compleja, sin necesidad de conocimientos de programación.",
+    "step1": {
+      "title": "Crea Tu Cuenta",
+      "description": "Regístrate y completa nuestro proceso de incorporación guiado. Configura la personalidad de tu agente IA, su base de conocimientos y preferencias de respuesta en solo unos clics."
+    },
+    "step2": {
+      "title": "Integra el Script",
+      "description": "Copia y pega una sola línea de código en tu sitio web. Nuestro script ligero se carga de forma asíncrona y no afectará el rendimiento de tu página."
+    },
+    "step3": {
+      "title": "Personaliza y Lanza",
+      "description": "Ajusta la apariencia de tu widget de chat para que coincida con tu marca. Entrena a tu agente IA con tus preguntas frecuentes y documentación, y luego actívalo al instante."
+    }
+  }
+}

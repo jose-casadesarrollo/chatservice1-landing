@@ -1,0 +1,47 @@
+{
+  "metadata": {
+    "title": "ChatService1 Landing",
+    "description": "Page d'accueil moderne pour service de chat construite avec HeroUI"
+  },
+  "nav": {
+    "brand": "ACME",
+    "home": "Accueil",
+    "features": "Fonctionnalités",
+    "customers": "Clients",
+    "aboutUs": "À Propos",
+    "signIn": "Se Connecter",
+    "getStarted": "Commencer"
+  },
+  "hero": {
+    "badge": "Nouvelle expérience d'intégration",
+    "title": "Le moyen le plus simple de renforcer les équipes mondiales.",
+    "description": "Acme simplifie la gestion des équipes mondiales. RH, Paie, Emploi International, gestion des contractants et plus encore.",
+    "getStarted": "Commencer",
+    "seePlans": "Voir les plans"
+  },
+  "sections": {
+    "features": "Section Fonctionnalités",
+    "howItWorks": "Section Comment Ça Marche",
+    "testimonials": "Section Témoignages",
+    "pricing": "Section Tarifs",
+    "faq": "Section FAQ",
+    "cta": "Section Appel à l'Action"
+  },
+  "howItWorks": {
+    "label": "Comment Ça Marche",
+    "title": "Démarrez en trois étapes simples",
+    "subtitle": "De l'inscription au chat en direct en quelques minutes. Pas de configuration complexe, aucune expertise en programmation requise.",
+    "step1": {
+      "title": "Créez Votre Compte",
+      "description": "Inscrivez-vous et suivez notre processus d'intégration guidé. Configurez la personnalité de votre agent IA, sa base de connaissances et ses préférences de réponse en quelques clics."
+    },
+    "step2": {
+      "title": "Intégrez le Script",
+      "description": "Copiez et collez une seule ligne de code dans votre site web. Notre script léger se charge de manière asynchrone et n'affectera pas les performances de votre page."
+    },
+    "step3": {
+      "title": "Personnalisez et Lancez",
+      "description": "Ajustez l'apparence de votre widget de chat pour correspondre à votre marque. Entraînez votre agent IA avec vos FAQ et documentation, puis passez en direct instantanément."
+    }
+  }
+}

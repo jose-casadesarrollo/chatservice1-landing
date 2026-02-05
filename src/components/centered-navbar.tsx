@@ -17,14 +17,21 @@ import {
   cn,
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
+import { useTranslations } from "next-intl";
 
 import { AcmeIcon } from "./social";
-
-const menuItems = ["Home", "Features", "Customers", "About Us"];
 
 const CenteredNavbar = React.forwardRef<HTMLElement, NavbarProps>(
   ({ classNames: { base, wrapper, ...otherClassNames } = {}, ...props }, ref) => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+    const t = useTranslations("nav");
+
+    const menuItems = [
+      { key: "home", label: t("home") },
+      { key: "features", label: t("features") },
+      { key: "customers", label: t("customers") },
+      { key: "aboutUs", label: t("aboutUs") },
+    ];
 
     return (
       <Navbar
@@ -39,7 +46,7 @@ const CenteredNavbar = React.forwardRef<HTMLElement, NavbarProps>(
         }}
         height="40px"
         isMenuOpen={isMenuOpen}
-        position="static"
+        position="sticky"
         onMenuOpenChange={setIsMenuOpen}
         {...props}
       >
@@ -47,28 +54,28 @@ const CenteredNavbar = React.forwardRef<HTMLElement, NavbarProps>(
           <div className="bg-background rounded-full">
             <AcmeIcon className="text-default-foreground" size={34} />
           </div>
-          <span className="text-small text-background ml-2 font-medium">ACME</span>
+          <span className="text-small text-background ml-2 font-medium">{t("brand")}</span>
         </NavbarBrand>
 
         <NavbarContent className="hidden md:flex" justify="center">
           <NavbarItem isActive className="data-[active='true']:font-medium">
             <Link aria-current="page" className="text-background" href="#" size="sm">
-              Home
+              {t("home")}
             </Link>
           </NavbarItem>
           <NavbarItem>
             <Link className="text-default-500" href="#" size="sm">
-              Features
+              {t("features")}
             </Link>
           </NavbarItem>
           <NavbarItem>
             <Link className="text-default-500" href="#" size="sm">
-              Customers
+              {t("customers")}
             </Link>
           </NavbarItem>
           <NavbarItem>
             <Link className="text-default-500" href="#" size="sm">
-              About Us
+              {t("aboutUs")}
             </Link>
           </NavbarItem>
         </NavbarContent>
@@ -82,7 +89,7 @@ const CenteredNavbar = React.forwardRef<HTMLElement, NavbarProps>(
               }
               radius="full"
             >
-              Get Started
+              {t("getStarted")}
             </Button>
           </NavbarItem>
         </NavbarContent>
@@ -99,21 +106,21 @@ const CenteredNavbar = React.forwardRef<HTMLElement, NavbarProps>(
           }}
         >
           {menuItems.map((item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`}>
+            <NavbarMenuItem key={item.key}>
               <Link className="text-default-500 mb-2 w-full" href="#" size="md">
-                {item}
+                {item.label}
               </Link>
               {index < menuItems.length - 1 && <Divider className="opacity-50" />}
             </NavbarMenuItem>
           ))}
           <NavbarMenuItem>
             <Button fullWidth as={Link} className="border-0" href="/#" variant="faded">
-              Sign In
+              {t("signIn")}
             </Button>
           </NavbarMenuItem>
           <NavbarMenuItem className="mb-4">
             <Button fullWidth as={Link} className="bg-foreground text-background" href="/#">
-              Get Started
+              {t("getStarted")}
             </Button>
           </NavbarMenuItem>
         </NavbarMenu>

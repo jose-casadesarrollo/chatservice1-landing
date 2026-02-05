@@ -3,6 +3,7 @@
 import React from "react";
 import { Button } from "@heroui/react";
 import { Icon } from "@iconify/react";
+import { useTranslations } from "next-intl";
 
 import CenteredNavbar from "./centered-navbar";
 import ScrollingBanner from "./scrolling-banner";
@@ -53,6 +54,8 @@ const logos = [
 ];
 
 export default function HeroSection() {
+  const t = useTranslations("hero");
+
   return (
     <>
       <main className="bg-gradient-1 flex flex-col items-center rounded-2xl px-3 md:rounded-3xl md:px-0">
@@ -69,18 +72,17 @@ export default function HeroSection() {
             }
             radius="full"
           >
-            New onboarding experience
+            {t("badge")}
           </Button>
           <h1 className="text-foreground text-center text-[clamp(2.125rem,1.142rem+3.659vw,4rem)] leading-none font-bold">
-            Easiest way to <br /> power global teams.
+            {t("title")}
           </h1>
           <p className="text-default-600 text-center text-base sm:w-[466px] md:text-lg md:leading-6">
-            Acme makes running global teams simple. HR, Payroll, International Employment,
-            contractor management and more.
+            {t("description")}
           </p>
           <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-6">
             <Button className="bg-foreground text-background w-[163px] font-medium" radius="full">
-              Get Started
+              {t("getStarted")}
             </Button>
             <Button
               className="text-default-foreground w-[163px] border-1 border-white/40 font-medium"
@@ -96,7 +98,7 @@ export default function HeroSection() {
               radius="full"
               variant="bordered"
             >
-              See our plans
+              {t("seePlans")}
             </Button>
           </div>
         </section>

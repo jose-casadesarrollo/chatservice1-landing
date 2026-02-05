@@ -1,0 +1,47 @@
+{
+  "metadata": {
+    "title": "ChatService1 Landing",
+    "description": "Modern chat service landing page built with HeroUI"
+  },
+  "nav": {
+    "brand": "ACME",
+    "home": "Home",
+    "features": "Features",
+    "customers": "Customers",
+    "aboutUs": "About Us",
+    "signIn": "Sign In",
+    "getStarted": "Get Started"
+  },
+  "hero": {
+    "badge": "New onboarding experience",
+    "title": "Easiest way to power global teams.",
+    "description": "Acme makes running global teams simple. HR, Payroll, International Employment, contractor management and more.",
+    "getStarted": "Get Started",
+    "seePlans": "See our plans"
+  },
+  "sections": {
+    "features": "Features Section",
+    "howItWorks": "How It Works Section",
+    "testimonials": "Testimonials Section",
+    "pricing": "Pricing Section",
+    "faq": "FAQ Section",
+    "cta": "CTA Section"
+  },
+  "howItWorks": {
+    "label": "How It Works",
+    "title": "Get started in three simple steps",
+    "subtitle": "From sign-up to live chat in minutes. No complex setup, no coding expertise required.",
+    "step1": {
+      "title": "Create Your Account",
+      "description": "Sign up and complete our guided onboarding. Configure your AI agent's personality, knowledge base, and response preferences in just a few clicks."
+    },
+    "step2": {
+      "title": "Embed the Script",
+      "description": "Copy and paste a single line of code into your website. Our lightweight script loads asynchronously and won't affect your page performance."
+    },
+    "step3": {
+      "title": "Customize & Launch",
+      "description": "Fine-tune your chat widget's appearance to match your brand. Train your AI agent with your FAQs and documentation, then go live instantly."
+    }
+  }
+}
