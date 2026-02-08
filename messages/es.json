@@ -4,20 +4,20 @@
     "description": "Página de aterrizaje moderna para servicio de chat construida con HeroUI"
   },
   "nav": {
-    "brand": "ACME",
+    "brand": "CHATSERVICE",
     "home": "Inicio",
     "features": "Características",
     "customers": "Clientes",
     "aboutUs": "Nosotros",
     "signIn": "Iniciar Sesión",
     "getStarted": "Comenzar",
-    "login": "Ingresar"
+    "login": "Log In"
   },
   "hero": {
-    "badge": "Nueva experiencia de incorporación",
-    "title": "La forma más fácil de potenciar equipos globales.",
-    "description": "Acme simplifica la gestión de equipos globales. RRHH, Nómina, Empleo Internacional, gestión de contratistas y más.",
-    "getStarted": "Comenzar",
+    "badge": "No se requiere tarjeta de crédito",
+    "title": "Crea agentes de IA que se sienten como tu equipo",
+    "description": "La plataforma completa para implementar agentes de IA personalizados. Maneja soporte, impulsa ventas y entrega experiencias que los clientes aman—todo con la voz de tu marca.",
+    "getStarted": "Crea tu agente gratis",
     "seePlans": "Ver planes"
   },
   "sections": {
