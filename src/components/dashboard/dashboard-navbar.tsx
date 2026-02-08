@@ -85,7 +85,7 @@ export default function DashboardNavbar() {
           wrapper: "px-4 sm:px-6 max-w-full",
           item: "data-[active=true]:text-primary",
         }}
-        height="60px"
+        height="59px"
         maxWidth="full"
       >
         <NavbarBrand>
