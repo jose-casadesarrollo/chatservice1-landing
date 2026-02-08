@@ -10,7 +10,8 @@
     "customers": "Kunden",
     "aboutUs": "Über Uns",
     "signIn": "Anmelden",
-    "getStarted": "Loslegen"
+    "getStarted": "Loslegen",
+    "login": "Einloggen"
   },
   "hero": {
     "badge": "Neues Onboarding-Erlebnis",
@@ -43,5 +44,21 @@
       "title": "Anpassen und Starten",
       "description": "Passen Sie das Erscheinungsbild Ihres Chat-Widgets an Ihre Marke an. Trainieren Sie Ihren KI-Agenten mit Ihren FAQs und Dokumentationen und gehen Sie sofort live."
     }
+  },
+  "login": {
+    "back": "Zurück",
+    "title": "Anmelden",
+    "emailLabel": "E-Mail-Adresse",
+    "emailPlaceholder": "E-Mail eingeben",
+    "passwordLabel": "Passwort",
+    "passwordPlaceholder": "Passwort eingeben",
+    "rememberMe": "Angemeldet bleiben",
+    "forgotPassword": "Passwort vergessen?",
+    "loginButton": "Anmelden",
+    "or": "ODER",
+    "continueWithGoogle": "Mit Google fortfahren",
+    "continueWithGithub": "Mit Github fortfahren",
+    "noAccount": "Noch kein Konto?",
+    "signUp": "Registrieren"
   }
 }

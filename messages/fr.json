@@ -10,7 +10,8 @@
     "customers": "Clients",
     "aboutUs": "À Propos",
     "signIn": "Se Connecter",
-    "getStarted": "Commencer"
+    "getStarted": "Commencer",
+    "login": "Connexion"
   },
   "hero": {
     "badge": "Nouvelle expérience d'intégration",
@@ -43,5 +44,21 @@
       "title": "Personnalisez et Lancez",
       "description": "Ajustez l'apparence de votre widget de chat pour correspondre à votre marque. Entraînez votre agent IA avec vos FAQ et documentation, puis passez en direct instantanément."
     }
+  },
+  "login": {
+    "back": "Retour",
+    "title": "Se Connecter",
+    "emailLabel": "Adresse E-mail",
+    "emailPlaceholder": "Entrez votre e-mail",
+    "passwordLabel": "Mot de passe",
+    "passwordPlaceholder": "Entrez votre mot de passe",
+    "rememberMe": "Se souvenir de moi",
+    "forgotPassword": "Mot de passe oublié ?",
+    "loginButton": "Se Connecter",
+    "or": "OU",
+    "continueWithGoogle": "Continuer avec Google",
+    "continueWithGithub": "Continuer avec Github",
+    "noAccount": "Besoin de créer un compte ?",
+    "signUp": "S'inscrire"
   }
 }

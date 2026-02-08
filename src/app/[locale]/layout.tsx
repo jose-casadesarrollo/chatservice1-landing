@@ -33,7 +33,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className="light">
+    <html lang={locale} className="light" suppressHydrationWarning>
       <body className={`${manrope.className} antialiased`}>
         <NextIntlClientProvider messages={messages}>
           <Providers>{children}</Providers>

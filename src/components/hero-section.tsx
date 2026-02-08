@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Button } from "@heroui/react";
+import { Button, Link } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { useTranslations } from "next-intl";
 
@@ -81,7 +81,12 @@ export default function HeroSection() {
             {t("description")}
           </p>
           <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-6">
-            <Button className="bg-foreground text-background w-[163px] font-medium" radius="full">
+            <Button
+              as={Link}
+              href="/signup"
+              className="bg-foreground text-background w-[163px] font-medium"
+              radius="full"
+            >
               {t("getStarted")}
             </Button>
             <Button

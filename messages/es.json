@@ -10,7 +10,8 @@
     "customers": "Clientes",
     "aboutUs": "Nosotros",
     "signIn": "Iniciar Sesión",
-    "getStarted": "Comenzar"
+    "getStarted": "Comenzar",
+    "login": "Ingresar"
   },
   "hero": {
     "badge": "Nueva experiencia de incorporación",
@@ -43,5 +44,21 @@
       "title": "Personaliza y Lanza",
       "description": "Ajusta la apariencia de tu widget de chat para que coincida con tu marca. Entrena a tu agente IA con tus preguntas frecuentes y documentación, y luego actívalo al instante."
     }
+  },
+  "login": {
+    "back": "Volver",
+    "title": "Iniciar Sesión",
+    "emailLabel": "Correo Electrónico",
+    "emailPlaceholder": "Ingresa tu correo",
+    "passwordLabel": "Contraseña",
+    "passwordPlaceholder": "Ingresa tu contraseña",
+    "rememberMe": "Recordarme",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "loginButton": "Iniciar Sesión",
+    "or": "O",
+    "continueWithGoogle": "Continuar con Google",
+    "continueWithGithub": "Continuar con Github",
+    "noAccount": "¿Necesitas crear una cuenta?",
+    "signUp": "Regístrate"
   }
 }

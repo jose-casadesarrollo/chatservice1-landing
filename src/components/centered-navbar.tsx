@@ -83,13 +83,15 @@ const CenteredNavbar = React.forwardRef<HTMLElement, NavbarProps>(
         <NavbarContent className="hidden md:flex" justify="end">
           <NavbarItem>
             <Button
+              as={Link}
+              href="/login"
               className="bg-background text-default-foreground font-medium"
               endContent={
                 <Icon className="pointer-events-none" icon="solar:alt-arrow-right-linear" />
               }
               radius="full"
             >
-              {t("getStarted")}
+              {t("login")}
             </Button>
           </NavbarItem>
         </NavbarContent>
@@ -114,12 +116,12 @@ const CenteredNavbar = React.forwardRef<HTMLElement, NavbarProps>(
             </NavbarMenuItem>
           ))}
           <NavbarMenuItem>
-            <Button fullWidth as={Link} className="border-0" href="/#" variant="faded">
+            <Button fullWidth as={Link} className="border-0" href="/login" variant="faded">
               {t("signIn")}
             </Button>
           </NavbarMenuItem>
           <NavbarMenuItem className="mb-4">
-            <Button fullWidth as={Link} className="bg-foreground text-background" href="/#">
+            <Button fullWidth as={Link} className="bg-foreground text-background" href="/signup">
               {t("getStarted")}
             </Button>
           </NavbarMenuItem>

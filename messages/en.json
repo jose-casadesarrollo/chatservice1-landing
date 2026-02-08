@@ -10,7 +10,8 @@
     "customers": "Customers",
     "aboutUs": "About Us",
     "signIn": "Sign In",
-    "getStarted": "Get Started"
+    "getStarted": "Get Started",
+    "login": "Login"
   },
   "hero": {
     "badge": "New onboarding experience",
@@ -43,5 +44,21 @@
       "title": "Customize & Launch",
       "description": "Fine-tune your chat widget's appearance to match your brand. Train your AI agent with your FAQs and documentation, then go live instantly."
     }
+  },
+  "login": {
+    "back": "Back",
+    "title": "Log In",
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "Enter your email",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "loginButton": "Log In",
+    "or": "OR",
+    "continueWithGoogle": "Continue with Google",
+    "continueWithGithub": "Continue with Github",
+    "noAccount": "Need to create an account?",
+    "signUp": "Sign Up"
   }
 }
