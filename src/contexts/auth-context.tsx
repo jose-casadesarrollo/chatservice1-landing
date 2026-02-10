@@ -95,7 +95,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     localStorage.removeItem(TOKEN_KEY);
     setToken(null);
     setUser(null);
-    router.push("/login");
+    router.push("/");
   }, [router]);
 
   const checkAuth = useCallback(async (): Promise<boolean> => {

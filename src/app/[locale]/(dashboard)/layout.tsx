@@ -7,6 +7,7 @@ import {
   DashboardThemeProvider,
   useDashboardTheme,
 } from "@/contexts/dashboard-theme-context";
+import { DashboardTabProvider } from "@/contexts/dashboard-tab-context";
 import { useAuth } from "@/contexts/auth-context";
 
 function DashboardContent({ children }: { children: React.ReactNode }) {
@@ -54,9 +55,9 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="flex h-screen flex-col overflow-hidden bg-background text-foreground">
       <DashboardNavbar />
-      <main className="w-full px-4 py-8 sm:px-6">{children}</main>
+      <main className="flex-1 overflow-hidden">{children}</main>
     </div>
   );
 }
@@ -68,7 +69,9 @@ export default function DashboardLayout({
 }) {
   return (
     <DashboardThemeProvider>
-      <DashboardContent>{children}</DashboardContent>
+      <DashboardTabProvider>
+        <DashboardContent>{children}</DashboardContent>
+      </DashboardTabProvider>
     </DashboardThemeProvider>
   );
 }

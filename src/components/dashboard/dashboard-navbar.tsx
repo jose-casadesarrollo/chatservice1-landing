@@ -22,7 +22,6 @@ import {
   Tabs,
   Tab,
   Avatar,
-  Chip,
   ScrollShadow,
   Input,
   Badge,
@@ -33,6 +32,7 @@ import { Icon } from "@iconify/react";
 import NotificationsCard from "./notifications-card";
 import { AcmeIcon } from "../icons/acme-icon";
 import { useDashboardTheme, type ThemeMode } from "@/contexts/dashboard-theme-context";
+import { useDashboardTab, type DashboardTab } from "@/contexts/dashboard-tab-context";
 import { useAuth } from "@/contexts/auth-context";
 
 function ThemeSelector() {
@@ -71,6 +71,7 @@ function ThemeSelector() {
 
 export default function DashboardNavbar() {
   const { user, logout } = useAuth();
+  const { activeTab, setActiveTab } = useDashboardTab();
 
   const handleLogout = () => {
     logout();
@@ -81,11 +82,11 @@ export default function DashboardNavbar() {
       {/* Top Header Bar - Full Width */}
       <Navbar
         classNames={{
-          base: "pt-1.5",
+          base: "pt-4.5",
           wrapper: "px-4 sm:px-6 max-w-full",
           item: "data-[active=true]:text-primary",
         }}
-        height="59px"
+        height="15px"
         maxWidth="full"
       >
         <NavbarBrand>
@@ -94,7 +95,7 @@ export default function DashboardNavbar() {
           <p className="font-bold text-inherit">ACME</p>
         </NavbarBrand>
         {/* Right Menu */}
-        <NavbarContent className="ml-auto h-12 max-w-fit items-center gap-0" justify="end">
+        <NavbarContent className="ml-auto h-10 max-w-fit items-center gap-0" justify="end">
           {/* Search */}
           <NavbarItem className="mr-2 hidden sm:flex">
             <Input
@@ -243,14 +244,14 @@ export default function DashboardNavbar() {
 
         {/* Mobile Menu */}
         <NavbarMenu>
-          <NavbarMenuItem>
-            <Link className="w-full" color="foreground" href="#">
-              Dashboard
-            </Link>
-          </NavbarMenuItem>
           <NavbarMenuItem isActive>
             <Link aria-current="page" className="w-full" color="primary" href="#">
-              Deployments
+              Playground
+            </Link>
+          </NavbarMenuItem>
+          <NavbarMenuItem>
+            <Link className="w-full" color="foreground" href="#">
+              Activity
             </Link>
           </NavbarMenuItem>
           <NavbarMenuItem>
@@ -260,12 +261,27 @@ export default function DashboardNavbar() {
           </NavbarMenuItem>
           <NavbarMenuItem>
             <Link className="w-full" color="foreground" href="#">
-              Team
+              Sources
             </Link>
           </NavbarMenuItem>
           <NavbarMenuItem>
             <Link className="w-full" color="foreground" href="#">
-              Settings
+              Actions
+            </Link>
+          </NavbarMenuItem>
+          <NavbarMenuItem>
+            <Link className="w-full" color="foreground" href="#">
+              Deploy
+            </Link>
+          </NavbarMenuItem>
+          <NavbarMenuItem>
+            <Link className="w-full" color="foreground" href="#">
+              Theme
+            </Link>
+          </NavbarMenuItem>
+          <NavbarMenuItem>
+            <Link className="w-full" color="foreground" href="#">
+              Agent Settings
             </Link>
           </NavbarMenuItem>
         </NavbarMenu>
@@ -287,20 +303,17 @@ export default function DashboardNavbar() {
             }}
             radius="full"
             variant="underlined"
+            selectedKey={activeTab}
+            onSelectionChange={(key) => setActiveTab(key as DashboardTab)}
           >
-            <Tab key="dashboard" title="Dashboard" />
-            <Tab
-              key="deployments"
-              title={
-                <div className="flex items-center gap-2">
-                  <p>Deployments</p>
-                  <Chip size="sm">9</Chip>
-                </div>
-              }
-            />
+            <Tab key="playground" title="Playground" />
+            <Tab key="activity" title="Activity" />
             <Tab key="analytics" title="Analytics" />
-            <Tab key="team" title="Team" />
-            <Tab key="settings" title="Settings" />
+            <Tab key="sources" title="Sources" />
+            <Tab key="actions" title="Actions" />
+            <Tab key="deploy" title="Deploy" />
+            <Tab key="theme" title="Theme" />
+            <Tab key="agent-settings" title="Agent Settings" />
           </Tabs>
         </ScrollShadow>
       </div>
