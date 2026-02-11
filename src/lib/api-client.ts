@@ -69,6 +69,7 @@ export interface LoginResponse {
   role: "user" | "admin" | "owner" | "super_admin";
   tenant_id: string;
   tenant_name: string;
+  tenant_slug?: string;
 }
 
 export interface MeResponse {

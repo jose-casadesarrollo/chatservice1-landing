@@ -27,6 +27,7 @@ import {
   addToast,
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
+import { useAuth } from "@/contexts/auth-context";
 
 // ============================================================================
 // Configuration
@@ -166,19 +167,6 @@ function useDebounce<T>(value: T, delay: number): T {
   }, [value, delay]);
 
   return debouncedValue;
-}
-
-/**
- * Validates origin strictly (no .includes() vulnerability)
- */
-function isValidOrigin(eventOrigin: string, expectedUrl: string): boolean {
-  try {
-    const eventHostname = new URL(eventOrigin).hostname;
-    const expectedHostname = new URL(expectedUrl).hostname;
-    return eventHostname === expectedHostname;
-  } catch {
-    return false;
-  }
 }
 
 // ============================================================================
@@ -456,12 +444,14 @@ function QuickPromptsEditor({ isOpen, onClose, prompts, onSave }: QuickPromptsEd
 // ============================================================================
 
 export default function ThemePlayground() {
+  // Auth context - tenantSlug is fetched at login time
+  const { user } = useAuth();
+  const tenantSlug = user?.tenantSlug || "";
+
   // Core state
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [theme, setTheme] = useState<Theme | null>(null);
   const [originalTheme, setOriginalTheme] = useState<Theme | null>(null);
-  const [widgetReady, setWidgetReady] = useState(false);
-  const [tenantSlug, setTenantSlug] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -531,18 +521,6 @@ export default function ThemePlayground() {
         
         setTheme(validatedTheme);
         setOriginalTheme(validatedTheme);
-
-        // Get widget URL info
-        try {
-          const widgetResponse = await fetch(`${API_URL}/api/user/widget-url`, { headers });
-          if (widgetResponse.ok) {
-            const widgetData = await widgetResponse.json();
-            setTenantSlug(typeof widgetData.tenant_slug === "string" ? widgetData.tenant_slug : "");
-          }
-        } catch {
-          // Widget URL is optional
-        }
-        
         setError(null);
       } catch (err) {
         const message = err instanceof Error ? err.message : "Failed to load theme";
@@ -560,44 +538,22 @@ export default function ThemePlayground() {
     fetchInitialData();
   }, [buildHeaders]);
 
-  // Listen for widget messages
-  useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      if (!isValidOrigin(event.origin, WIDGET_URL)) return;
-
-      if (event.data?.type === "CHATKIT_PREVIEW_READY") {
-        setWidgetReady(true);
-      }
-    };
-
-    window.addEventListener("message", handleMessage);
-    return () => window.removeEventListener("message", handleMessage);
-  }, []);
-
   // Send theme update to widget
   const updatePreview = useCallback((themeToSend: Theme) => {
-    if (iframeRef.current?.contentWindow && widgetReady) {
+    if (iframeRef.current?.contentWindow) {
       iframeRef.current.contentWindow.postMessage(
         { type: "CHATKIT_THEME_UPDATE", theme: themeToSend },
         WIDGET_URL
       );
     }
-  }, [widgetReady]);
-
-  // Send initial theme when widget becomes ready
-  useEffect(() => {
-    if (widgetReady && theme) {
-      updatePreview(theme);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [widgetReady]);
+  }, []);
 
   // Send debounced theme updates
   useEffect(() => {
-    if (debouncedTheme && widgetReady) {
+    if (debouncedTheme) {
       updatePreview(debouncedTheme);
     }
-  }, [debouncedTheme, widgetReady, updatePreview]);
+  }, [debouncedTheme, updatePreview]);
 
   // Handle theme change (debounced for text inputs)
   const handleChange = useCallback((key: keyof Theme, value: Theme[keyof Theme]) => {
@@ -612,7 +568,7 @@ export default function ThemePlayground() {
     setTheme((prev) => {
       if (!prev) return prev;
       const newTheme = { ...prev, [key]: value };
-      if (iframeRef.current?.contentWindow && widgetReady) {
+      if (iframeRef.current?.contentWindow) {
         iframeRef.current.contentWindow.postMessage(
           { type: "CHATKIT_THEME_UPDATE", theme: newTheme },
           WIDGET_URL
@@ -620,7 +576,7 @@ export default function ThemePlayground() {
       }
       return newTheme;
     });
-  }, [widgetReady]);
+  }, []);
 
   // Save theme to server
   const saveTheme = async () => {
@@ -661,7 +617,7 @@ export default function ThemePlayground() {
     if (originalTheme) {
       setTheme(originalTheme);
       updatePreview(originalTheme);
-      if (iframeRef.current?.contentWindow && widgetReady) {
+      if (iframeRef.current?.contentWindow) {
         iframeRef.current.contentWindow.postMessage(
           { type: "CHATKIT_THEME_RESET" },
           WIDGET_URL
@@ -672,7 +628,7 @@ export default function ThemePlayground() {
 
   // Start new conversation in preview
   const newConversation = () => {
-    if (iframeRef.current?.contentWindow && widgetReady) {
+    if (iframeRef.current?.contentWindow) {
       iframeRef.current.contentWindow.postMessage(
         { type: "CHATKIT_NEW_CONVERSATION" },
         WIDGET_URL
@@ -1238,7 +1194,7 @@ export default function ThemePlayground() {
                 size="sm"
                 variant="light"
                 onPress={newConversation}
-                isDisabled={!widgetReady}
+                isDisabled={!tenantSlug}
                 className="h-6 w-6 min-w-0"
               >
                 <Icon icon="solar:restart-linear" width={14} />
@@ -1275,30 +1231,21 @@ export default function ThemePlayground() {
                   height: previewSize.height,
                 }}
               >
-                {/* Loading state or missing tenant */}
-                {(!widgetReady || !tenantSlug) && (
+                {/* Missing tenant message */}
+                {!tenantSlug && (
                   <div className="absolute inset-0 z-10 flex items-center justify-center bg-background">
                     <div className="flex flex-col items-center gap-3">
-                      {!tenantSlug ? (
-                        <>
-                          <Icon
-                            icon="solar:widget-5-linear"
-                            className="text-default-300"
-                            width={48}
-                          />
-                          <span className="text-sm text-default-500">
-                            Widget preview unavailable
-                          </span>
-                          <span className="text-xs text-default-400">
-                            Tenant configuration missing
-                          </span>
-                        </>
-                      ) : (
-                        <>
-                          <Spinner size="lg" />
-                          <span className="text-sm text-default-500">Loading preview...</span>
-                        </>
-                      )}
+                      <Icon
+                        icon="solar:widget-5-linear"
+                        className="text-default-300"
+                        width={48}
+                      />
+                      <span className="text-sm text-default-500">
+                        Widget preview unavailable
+                      </span>
+                      <span className="text-xs text-default-400">
+                        Tenant configuration missing
+                      </span>
                     </div>
                   </div>
                 )}

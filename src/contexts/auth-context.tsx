@@ -83,6 +83,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         role: response.role,
         tenantId: response.tenant_id,
         tenantName: response.tenant_name,
+        tenantSlug: response.tenant_slug,
       });
 
       // Redirect to dashboard

@@ -32,7 +32,7 @@ import { Icon } from "@iconify/react";
 import NotificationsCard from "./notifications-card";
 import { AcmeIcon } from "../icons/acme-icon";
 import { useDashboardTheme, type ThemeMode } from "@/contexts/dashboard-theme-context";
-import { useDashboardTab, type DashboardTab } from "@/contexts/dashboard-tab-context";
+import { useDashboardTab, type DashboardTab, dataSourcesTabs, isDataSourcesTab } from "@/contexts/dashboard-tab-context";
 import { useAuth } from "@/contexts/auth-context";
 
 function ThemeSelector() {
@@ -87,7 +87,7 @@ export default function DashboardNavbar() {
           item: "data-[active=true]:text-primary",
         }}
         height="15px"
-        maxWidth="full"
+        maxWidth="full" wassup my 
       >
         <NavbarBrand>
           <NavbarMenuToggle className="mr-2 h-6 sm:hidden" />
@@ -244,11 +244,6 @@ export default function DashboardNavbar() {
 
         {/* Mobile Menu */}
         <NavbarMenu>
-          <NavbarMenuItem isActive>
-            <Link aria-current="page" className="w-full" color="primary" href="#">
-              Playground
-            </Link>
-          </NavbarMenuItem>
           <NavbarMenuItem>
             <Link className="w-full" color="foreground" href="#">
               Activity
@@ -274,9 +269,9 @@ export default function DashboardNavbar() {
               Deploy
             </Link>
           </NavbarMenuItem>
-          <NavbarMenuItem>
-            <Link className="w-full" color="foreground" href="#">
-              Theme
+          <NavbarMenuItem isActive>
+            <Link aria-current="page" className="w-full" color="primary" href="#">
+              Playground
             </Link>
           </NavbarMenuItem>
           <NavbarMenuItem>
@@ -293,28 +288,82 @@ export default function DashboardNavbar() {
           className="flex w-full justify-between gap-8 px-4 sm:px-6"
           orientation="horizontal"
         >
-          <Tabs
-            aria-label="Navigation Tabs"
-            classNames={{
-              tabList: "w-full relative rounded-none p-0 gap-4 lg:gap-6",
-              tab: "max-w-fit px-0 h-12",
-              cursor: "w-full",
-              tabContent: "text-default-400",
-            }}
-            radius="full"
-            variant="underlined"
-            selectedKey={activeTab}
-            onSelectionChange={(key) => setActiveTab(key as DashboardTab)}
-          >
-            <Tab key="playground" title="Playground" />
-            <Tab key="activity" title="Activity" />
-            <Tab key="analytics" title="Analytics" />
-            <Tab key="sources" title="Sources" />
-            <Tab key="actions" title="Actions" />
-            <Tab key="deploy" title="Deploy" />
-            <Tab key="theme" title="Theme" />
-            <Tab key="agent-settings" title="Agent Settings" />
-          </Tabs>
+          <div className="flex items-center gap-4 lg:gap-6">
+            {/* Regular tabs before Sources */}
+            {[
+              { key: "activity", title: "Activity" },
+              { key: "analytics", title: "Analytics" },
+            ].map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => setActiveTab(tab.key as DashboardTab)}
+                className={cn(
+                  "relative h-12 px-0 text-sm font-medium transition-colors",
+                  "hover:text-foreground",
+                  activeTab === tab.key
+                    ? "text-primary after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-primary"
+                    : "text-default-400"
+                )}
+              >
+                {tab.title}
+              </button>
+            ))}
+
+            {/* Sources Dropdown */}
+            <Dropdown placement="bottom-start">
+              <DropdownTrigger>
+                <button
+                  className={cn(
+                    "relative flex h-12 items-center gap-1 px-0 text-sm font-medium transition-colors",
+                    "hover:text-foreground",
+                    isDataSourcesTab(activeTab)
+                      ? "text-primary after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-primary"
+                      : "text-default-400"
+                  )}
+                >
+                  Data Sources
+                  <Icon icon="solar:alt-arrow-down-linear" width={16} />
+                </button>
+              </DropdownTrigger>
+              <DropdownMenu
+                aria-label="Data Sources"
+                onAction={(key) => setActiveTab(key as DashboardTab)}
+                selectedKeys={isDataSourcesTab(activeTab) ? [activeTab] : []}
+                selectionMode="single"
+              >
+                {dataSourcesTabs.map((item) => (
+                  <DropdownItem
+                    key={item.key}
+                    startContent={<Icon icon={item.icon} width={18} className="text-default-500" />}
+                  >
+                    {item.title}
+                  </DropdownItem>
+                ))}
+              </DropdownMenu>
+            </Dropdown>
+
+            {/* Regular tabs after Sources */}
+            {[
+              { key: "actions", title: "Actions" },
+              { key: "deploy", title: "Deploy" },
+              { key: "playground", title: "Playground" },
+              { key: "agent-settings", title: "Agent Settings" },
+            ].map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => setActiveTab(tab.key as DashboardTab)}
+                className={cn(
+                  "relative h-12 px-0 text-sm font-medium transition-colors",
+                  "hover:text-foreground",
+                  activeTab === tab.key
+                    ? "text-primary after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-primary"
+                    : "text-default-400"
+                )}
+              >
+                {tab.title}
+              </button>
+            ))}
+          </div>
         </ScrollShadow>
       </div>
     </div>
