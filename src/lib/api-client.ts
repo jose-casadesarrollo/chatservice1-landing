@@ -95,3 +95,232 @@ export const authApi = {
       token,
     }),
 };
+
+// Branding API types
+export type BrandingAssetType = "logo" | "favicon";
+
+export interface BrandingAsset {
+  id: string;
+  asset_type: BrandingAssetType;
+  filename: string;
+  original_name: string;
+  mime_type: string;
+  file_size: number;
+  url: string;
+  created_at: string;
+}
+
+export interface ListBrandingAssetsResponse {
+  assets: BrandingAsset[];
+  total: number;
+}
+
+export interface ApplyBrandingRequest {
+  apply_logo?: boolean;
+  apply_favicon?: boolean;
+}
+
+export interface ApplyBrandingResponse {
+  status: "applied";
+  logo_url: string | null;
+  favicon_url: string | null;
+}
+
+// Branding API functions
+export const brandingApi = {
+  uploadAsset: (token: string, assetType: BrandingAssetType, file: File) => {
+    const formData = new FormData();
+    formData.append("asset_type", assetType);
+    formData.append("file", file);
+    return apiUpload<BrandingAsset>("/api/branding/upload", formData, token);
+  },
+
+  listAssets: (token: string) =>
+    apiClient<ListBrandingAssetsResponse>("/api/branding/assets", { token }),
+
+  applyBranding: (token: string, data: ApplyBrandingRequest) =>
+    apiClient<ApplyBrandingResponse>("/api/branding/apply", {
+      token,
+      method: "PUT",
+      body: data,
+    }),
+
+  deleteAsset: (token: string, assetId: string) =>
+    apiClient<void>(`/api/branding/assets/${assetId}`, {
+      token,
+      method: "DELETE",
+    }),
+};
+
+// Knowledge Base API types
+export type KnowledgeBaseCategory =
+  | "policy"
+  | "faq"
+  | "guide"
+  | "product"
+  | "support"
+  | "general";
+
+export type ProcessingStatus =
+  | "pending"
+  | "processing"
+  | "completed"
+  | "failed"
+  | "needs_reprocessing";
+
+export interface KnowledgeBaseDocument {
+  id: string;
+  title: string;
+  filename: string;
+  original_name: string;
+  category: KnowledgeBaseCategory;
+  description?: string;
+  mime_type: string;
+  file_size: number;
+  processing_status: ProcessingStatus;
+  processing_error?: string | null;
+  is_active: boolean;
+  keywords: string[];
+  chunk_count: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface KnowledgeBaseStats {
+  total_documents: number;
+  active_documents: number;
+  max_documents: number;
+  remaining_slots: number;
+  by_category: Record<string, number>;
+  by_processing_status: Record<string, number>;
+  total_tokens_used: number;
+}
+
+export interface ListDocumentsResponse {
+  files: KnowledgeBaseDocument[];
+  total: number;
+}
+
+export interface UploadDocumentRequest {
+  file: File;
+  title?: string;
+  category?: KnowledgeBaseCategory;
+  description?: string;
+  keywords?: string;
+}
+
+export interface ProcessingStatusResponse {
+  id: string;
+  status: ProcessingStatus;
+  error: string | null;
+  tokens_used: number;
+  processing_duration_ms: number;
+}
+
+export interface DeleteDocumentResponse {
+  status: "archived" | "deleted";
+  id: string;
+}
+
+export interface CreateDocumentRequest {
+  title: string;
+  content: string;
+  category?: KnowledgeBaseCategory;
+  description?: string;
+  keywords?: string[];
+}
+
+// Helper function for multipart/form-data uploads
+async function apiUpload<T>(
+  endpoint: string,
+  formData: FormData,
+  token: string
+): Promise<T> {
+  const response = await fetch(`${API_BASE}${endpoint}`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      // Note: Don't set Content-Type for FormData - browser sets it with boundary
+    },
+    body: formData,
+  });
+
+  if (!response.ok) {
+    const error = await response
+      .json()
+      .catch(() => ({ detail: "An unknown error occurred" }));
+
+    throw new ApiError(response.status, error.detail || "Upload failed");
+  }
+
+  const text = await response.text();
+  if (!text) {
+    return {} as T;
+  }
+
+  return JSON.parse(text);
+}
+
+// Knowledge Base API functions
+export const knowledgeBaseApi = {
+  getStats: (token: string) =>
+    apiClient<KnowledgeBaseStats>("/api/knowledge-base/stats", {
+      token,
+    }),
+
+  listFiles: (
+    token: string,
+    params?: { category?: KnowledgeBaseCategory; is_active?: boolean }
+  ) => {
+    const searchParams = new URLSearchParams();
+    if (params?.category) searchParams.set("category", params.category);
+    if (params?.is_active !== undefined)
+      searchParams.set("is_active", String(params.is_active));
+
+    const query = searchParams.toString();
+    return apiClient<ListDocumentsResponse>(
+      `/api/knowledge-base/files${query ? `?${query}` : ""}`,
+      { token }
+    );
+  },
+
+  uploadFile: (token: string, data: UploadDocumentRequest) => {
+    const formData = new FormData();
+    formData.append("file", data.file);
+    if (data.title) formData.append("title", data.title);
+    if (data.category) formData.append("category", data.category);
+    if (data.description) formData.append("description", data.description);
+    if (data.keywords) formData.append("keywords", data.keywords);
+
+    return apiUpload<KnowledgeBaseDocument>(
+      "/api/knowledge-base/upload",
+      formData,
+      token
+    );
+  },
+
+  getProcessingStatus: (token: string, fileId: string) =>
+    apiClient<ProcessingStatusResponse>(
+      `/api/knowledge-base/files/${fileId}/status`,
+      { token }
+    ),
+
+  deleteFile: (token: string, fileId: string, hardDelete = false) =>
+    apiClient<DeleteDocumentResponse>(
+      `/api/knowledge-base/files/${fileId}${hardDelete ? "?hard_delete=true" : ""}`,
+      { token, method: "DELETE" }
+    ),
+
+  toggleActive: (token: string, fileId: string) =>
+    apiClient<{ id: string; is_active: boolean; message: string }>(
+      `/api/knowledge-base/files/${fileId}/toggle-active`,
+      { token, method: "PATCH" }
+    ),
+
+  createDocument: (token: string, data: CreateDocumentRequest) =>
+    apiClient<KnowledgeBaseDocument>("/api/knowledge-base/create", {
+      token,
+      method: "POST",
+      body: data,
+    }),
+};

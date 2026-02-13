@@ -1,26 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Button,
-  Card,
-  CardBody,
-  Progress,
-  Divider,
-  Input,
-  Tooltip,
-  cn,
-} from "@heroui/react";
+import { Button, Input, Tooltip, cn } from "@heroui/react";
 import { Icon } from "@iconify/react";
-
-// Mock data - replace with real data from API
-const MOCK_DATA = {
-  totalLinks: 3304,
-  totalSizeKB: 867,
-  maxSizeKB: 400,
-  qaCount: 1,
-  qaSize: 31,
-};
+import DataSourcesSidebar from "../data-sources-sidebar";
 
 export default function QAPage() {
   const [isAddQAOpen, setIsAddQAOpen] = useState(true);
@@ -28,9 +11,8 @@ export default function QAPage() {
   const [questions, setQuestions] = useState<string[]>([""]);
   const [answer, setAnswer] = useState("");
 
-  const { totalLinks, totalSizeKB, maxSizeKB, qaCount, qaSize } = MOCK_DATA;
-  const usagePercent = Math.min((totalSizeKB / maxSizeKB) * 100, 100);
-  const isLimitExceeded = totalSizeKB > maxSizeKB;
+  // TODO: Wire this to actual stats from a shared context
+  const isLimitExceeded = false;
 
   // Calculate content size in bytes
   const contentSize = new Blob([answer]).size;
@@ -224,84 +206,7 @@ export default function QAPage() {
         </div>
 
         {/* Right Column - Sidebar */}
-        <div className="flex h-full w-[340px] flex-shrink-0">
-          <Card className="h-full w-full border border-divider shadow-none">
-            <CardBody className="gap-4 p-4">
-              {/* Header */}
-              <h2 className="text-sm font-semibold text-foreground">Data sources</h2>
-
-              {/* Stats */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Icon icon="solar:global-linear" width={16} className="text-default-400" />
-                  <span className="text-sm text-default-600">{totalLinks.toLocaleString()} Links</span>
-                </div>
-                <span className="text-sm text-default-500">{totalSizeKB} KB</span>
-              </div>
-
-              {/* Q&A Stats */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Icon icon="solar:chat-square-like-linear" width={16} className="text-default-400" />
-                  <span className="text-sm text-default-600">{qaCount} Q&amp;A</span>
-                </div>
-                <span className="text-sm text-default-500">{qaSize} B</span>
-              </div>
-
-              <Divider />
-
-              {/* Usage */}
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-default-600">Total size</span>
-                  <span className="text-sm text-default-500">
-                    {totalSizeKB} KB / {maxSizeKB} KB
-                  </span>
-                </div>
-                <Progress
-                  value={usagePercent}
-                  size="sm"
-                  color={isLimitExceeded ? "danger" : "primary"}
-                  classNames={{
-                    track: "h-2",
-                    indicator: isLimitExceeded ? "bg-danger" : "",
-                  }}
-                />
-              </div>
-
-              {/* Retrain Button */}
-              <Button
-                color="default"
-                variant="solid"
-                className="w-full bg-default-800 text-white hover:bg-default-700"
-              >
-                Retrain agent
-              </Button>
-
-              {/* Limit Warning */}
-              {isLimitExceeded && (
-                <div className="flex flex-col gap-2">
-                  <div className="flex items-center gap-1.5">
-                    <div className="h-1.5 w-1.5 rounded-full bg-danger" />
-                    <span className="text-sm font-medium text-danger">Limit exceeded</span>
-                  </div>
-                  <p className="text-xs text-default-500">
-                    You&apos;re using {totalSizeKB} KB of {maxSizeKB} KB included in your plan
-                  </p>
-                </div>
-              )}
-
-              {/* Upgrade Link */}
-              <button className="flex items-center justify-between rounded-lg border border-warning-200 bg-warning-50 px-3 py-2.5 text-left transition-colors hover:bg-warning-100">
-                <div className="flex items-center gap-2">
-                  <Icon icon="solar:info-circle-linear" width={16} className="text-warning-600" />
-                  <span className="text-sm text-default-700">Upgrade to train on more data</span>
-                </div>
-                <Icon icon="solar:alt-arrow-right-linear" width={16} className="text-default-400" />
-              </button>
-            </CardBody>
-          </Card>
-        </div>
+        <DataSourcesSidebar />
       </div>
     </div>
   );

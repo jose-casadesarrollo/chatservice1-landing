@@ -28,6 +28,11 @@ import {
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { useAuth } from "@/contexts/auth-context";
+import {
+  brandingApi,
+  BrandingAsset,
+  BrandingAssetType,
+} from "@/lib/api-client";
 
 // ============================================================================
 // Configuration
@@ -316,6 +321,168 @@ function ColorPicker({ value, onChange, disabled }: ColorPickerProps) {
   );
 }
 
+// Branding Asset Uploader Component
+interface BrandingUploaderProps {
+  assetType: BrandingAssetType;
+  label: string;
+  tooltip?: string;
+  currentUrl: string | null;
+  asset: BrandingAsset | null;
+  onUpload: (file: File) => Promise<void>;
+  onRemove: () => Promise<void>;
+  isUploading: boolean;
+}
+
+function BrandingUploader({
+  assetType,
+  label,
+  tooltip,
+  currentUrl,
+  asset,
+  onUpload,
+  onRemove,
+  isUploading,
+}: BrandingUploaderProps) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isDragOver, setIsDragOver] = useState(false);
+
+  const acceptedTypes = "image/png,image/jpeg,image/svg+xml,image/webp";
+
+  const handleFileSelect = async (file: File | null) => {
+    if (!file) return;
+    await onUpload(file);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragOver(false);
+    const file = e.dataTransfer.files[0];
+    if (file) handleFileSelect(file);
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragOver(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragOver(false);
+  };
+
+  const formatFileSize = (bytes: number) => {
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  };
+
+  return (
+    <div className="flex flex-col gap-2 py-2">
+      <div className="flex items-center gap-1.5">
+        <span className="text-sm text-foreground">{label}</span>
+        {tooltip && (
+          <Tooltip content={tooltip} placement="right" size="sm">
+            <span className="cursor-help">
+              <Icon
+                icon="solar:info-circle-linear"
+                className="text-default-400"
+                width={14}
+              />
+            </span>
+          </Tooltip>
+        )}
+      </div>
+
+      {currentUrl ? (
+        // Show current asset
+        <div className="flex items-center gap-3 rounded-lg border border-default-200 p-2">
+          <div className="relative flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-md border border-default-100 bg-default-50">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={currentUrl}
+              alt={label}
+              className="max-h-full max-w-full object-contain"
+            />
+          </div>
+          <div className="flex min-w-0 flex-1 flex-col">
+            <span className="truncate text-xs font-medium text-foreground">
+              {asset?.original_name || "Current asset"}
+            </span>
+            {asset && (
+              <span className="text-xs text-default-400">
+                {formatFileSize(asset.file_size)}
+              </span>
+            )}
+          </div>
+          <div className="flex gap-1">
+            <Tooltip content="Replace">
+              <Button
+                isIconOnly
+                size="sm"
+                variant="light"
+                onPress={() => fileInputRef.current?.click()}
+                isDisabled={isUploading}
+                className="h-7 w-7 min-w-0"
+              >
+                <Icon icon="solar:upload-linear" width={16} />
+              </Button>
+            </Tooltip>
+            <Tooltip content="Remove">
+              <Button
+                isIconOnly
+                size="sm"
+                variant="light"
+                color="danger"
+                onPress={onRemove}
+                isDisabled={isUploading}
+                className="h-7 w-7 min-w-0"
+              >
+                <Icon icon="solar:trash-bin-trash-linear" width={16} />
+              </Button>
+            </Tooltip>
+          </div>
+        </div>
+      ) : (
+        // Show upload dropzone
+        <div
+          className={cn(
+            "flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed p-4 transition-colors",
+            isDragOver
+              ? "border-primary bg-primary/5"
+              : "border-default-200 hover:border-default-300 hover:bg-default-50"
+          )}
+          onClick={() => fileInputRef.current?.click()}
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+        >
+          {isUploading ? (
+            <Spinner size="sm" />
+          ) : (
+            <>
+              <Icon
+                icon={assetType === "favicon" ? "solar:star-linear" : "solar:gallery-linear"}
+                className="text-default-400"
+                width={24}
+              />
+              <span className="text-xs text-default-500">
+                Click or drag to upload
+              </span>
+            </>
+          )}
+        </div>
+      )}
+
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept={acceptedTypes}
+        className="hidden"
+        onChange={(e) => handleFileSelect(e.target.files?.[0] || null)}
+      />
+    </div>
+  );
+}
+
 // Quick Prompts Editor Modal
 interface QuickPromptsEditorProps {
   isOpen: boolean;
@@ -459,6 +626,10 @@ export default function ThemePlayground() {
   // Quick prompts editor modal state
   const [isQuickPromptsOpen, setIsQuickPromptsOpen] = useState(false);
 
+  // Branding state
+  const [brandingAssets, setBrandingAssets] = useState<BrandingAsset[]>([]);
+  const [isUploadingLogo, setIsUploadingLogo] = useState(false);
+
   // Preview resize state
   const previewContainerRef = useRef<HTMLDivElement>(null);
   const [previewSize, setPreviewSize] = useState({ width: 400, height: 580 });
@@ -505,9 +676,15 @@ export default function ThemePlayground() {
   useEffect(() => {
     const fetchInitialData = async () => {
       const headers = buildHeaders();
+      const token = getAuthToken();
 
       try {
-        const themeResponse = await fetch(`${API_URL}/api/user/theme`, { headers });
+        // Fetch theme and branding assets in parallel
+        const [themeResponse, assetsResponse] = await Promise.all([
+          fetch(`${API_URL}/api/user/theme`, { headers }),
+          token ? brandingApi.listAssets(token).catch(() => ({ assets: [], total: 0 })) : Promise.resolve({ assets: [], total: 0 }),
+        ]);
+
         if (!themeResponse.ok) {
           throw new Error(`Failed to load theme: ${themeResponse.status}`);
         }
@@ -521,6 +698,7 @@ export default function ThemePlayground() {
         
         setTheme(validatedTheme);
         setOriginalTheme(validatedTheme);
+        setBrandingAssets(assetsResponse.assets || []);
         setError(null);
       } catch (err) {
         const message = err instanceof Error ? err.message : "Failed to load theme";
@@ -536,14 +714,14 @@ export default function ThemePlayground() {
     };
 
     fetchInitialData();
-  }, [buildHeaders]);
+  }, [buildHeaders, getAuthToken]);
 
-  // Send theme update to widget
+  // Send theme update to widget via postMessage
   const updatePreview = useCallback((themeToSend: Theme) => {
     if (iframeRef.current?.contentWindow) {
       iframeRef.current.contentWindow.postMessage(
         { type: "CHATKIT_THEME_UPDATE", theme: themeToSend },
-        WIDGET_URL
+        "*"
       );
     }
   }, []);
@@ -568,10 +746,11 @@ export default function ThemePlayground() {
     setTheme((prev) => {
       if (!prev) return prev;
       const newTheme = { ...prev, [key]: value };
+      // Send to widget immediately
       if (iframeRef.current?.contentWindow) {
         iframeRef.current.contentWindow.postMessage(
           { type: "CHATKIT_THEME_UPDATE", theme: newTheme },
-          WIDGET_URL
+          "*"
         );
       }
       return newTheme;
@@ -583,7 +762,17 @@ export default function ThemePlayground() {
     if (!theme) return;
     setIsSaving(true);
     
+    const token = getAuthToken();
+    
     try {
+      // Apply branding if we have a logo
+      if (token && logoAsset) {
+        await brandingApi.applyBranding(token, {
+          apply_logo: true,
+        });
+      }
+
+      // Save theme settings
       const response = await fetch(`${API_URL}/api/user/theme`, {
         method: "PUT",
         headers: buildHeaders(true),
@@ -620,7 +809,7 @@ export default function ThemePlayground() {
       if (iframeRef.current?.contentWindow) {
         iframeRef.current.contentWindow.postMessage(
           { type: "CHATKIT_THEME_RESET" },
-          WIDGET_URL
+          "*"
         );
       }
     }
@@ -631,7 +820,7 @@ export default function ThemePlayground() {
     if (iframeRef.current?.contentWindow) {
       iframeRef.current.contentWindow.postMessage(
         { type: "CHATKIT_NEW_CONVERSATION" },
-        WIDGET_URL
+        "*"
       );
     }
   };
@@ -639,6 +828,81 @@ export default function ThemePlayground() {
   // Handle quick prompts save
   const handleQuickPromptsSave = (prompts: QuickPrompt[]) => {
     handleImmediateChange("quick_prompts", prompts);
+  };
+
+  // Get current logo asset
+  const logoAsset = brandingAssets.find((a) => a.asset_type === "logo") || null;
+
+  // Handle logo upload
+  const handleLogoUpload = async (file: File) => {
+    const token = getAuthToken();
+    if (!token) {
+      addToast({
+        title: "Error",
+        description: "Authentication required",
+        color: "danger",
+      });
+      return;
+    }
+
+    setIsUploadingLogo(true);
+
+    try {
+      const newAsset = await brandingApi.uploadAsset(token, "logo", file);
+      
+      // Update local assets state - replace existing logo
+      setBrandingAssets((prev) => {
+        const filtered = prev.filter((a) => a.asset_type !== "logo");
+        return [...filtered, newAsset];
+      });
+
+      // Update theme with new URL for preview
+      handleImmediateChange("logo_url", newAsset.url);
+
+      addToast({
+        title: "Success",
+        description: "Logo uploaded successfully",
+        color: "success",
+      });
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Upload failed";
+      addToast({
+        title: "Error",
+        description: message,
+        color: "danger",
+      });
+    } finally {
+      setIsUploadingLogo(false);
+    }
+  };
+
+  // Handle logo removal
+  const handleLogoRemove = async () => {
+    const token = getAuthToken();
+    if (!token || !logoAsset) return;
+
+    try {
+      await brandingApi.deleteAsset(token, logoAsset.id);
+      
+      // Remove from local state
+      setBrandingAssets((prev) => prev.filter((a) => a.id !== logoAsset.id));
+
+      // Clear URL in theme
+      handleImmediateChange("logo_url", null);
+
+      addToast({
+        title: "Success",
+        description: "Logo removed",
+        color: "success",
+      });
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to remove logo";
+      addToast({
+        title: "Error",
+        description: message,
+        color: "danger",
+      });
+    }
   };
 
   // ============================================================================
@@ -981,6 +1245,22 @@ export default function ThemePlayground() {
 
             <Divider className="my-4" />
 
+            {/* Branding Section */}
+            <SectionHeader title="Branding" tooltip="Logo for your chat interface" />
+
+            <BrandingUploader
+              assetType="logo"
+              label="Logo"
+              tooltip="Displayed in chat header and widget bubble"
+              currentUrl={theme.logo_url}
+              asset={logoAsset}
+              onUpload={handleLogoUpload}
+              onRemove={handleLogoRemove}
+              isUploading={isUploadingLogo}
+            />
+
+            <Divider className="my-4" />
+
             {/* Start Screen Section */}
             <SectionHeader title="Start Screen" tooltip="Customize the initial chat screen" />
 
@@ -1249,15 +1529,16 @@ export default function ThemePlayground() {
                     </div>
                   </div>
                 )}
-                {/* Chat Widget Iframe */}
+                {/* Chat Widget Iframe - Using Minimal Widget with preview mode */}
                 {tenantSlug && (
                   <iframe
                     ref={iframeRef}
-                    src={`${WIDGET_URL}/widget?tenant=${encodeURIComponent(tenantSlug)}&preview=true`}
+                    src={`${WIDGET_URL}/widget.html?tenant=${encodeURIComponent(tenantSlug)}&preview=true`}
                     className="h-full w-full border-0"
                     style={{ pointerEvents: isResizing ? "none" : "auto" }}
                     title="Chat Widget Preview"
                     allow="clipboard-write"
+                    referrerPolicy="no-referrer-when-downgrade"
                   />
                 )}
               </div>

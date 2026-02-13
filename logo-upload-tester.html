@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logo Upload Tester</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            color: #555;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="file"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+        }
+
+        #result {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            white-space: pre-wrap;
+            word-break: break-word;
+            max-height: 400px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .result-success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .result-error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .result-info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .preview {
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .preview img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .file-info {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Logo Upload Tester</h1>
+        <p class="subtitle">Test the branding API endpoints directly</p>
+
+        <!-- Configuration Section -->
+        <div class="section">
+            <label for="apiUrl">API URL</label>
+            <input type="text" id="apiUrl" value="http://localhost:8000" placeholder="http://localhost:8000">
+            <p class="help-text">Backend API base URL</p>
+        </div>
+
+        <div class="section">
+            <label for="token">Access Token</label>
+            <input type="text" id="token" placeholder="Paste your access token here">
+            <p class="help-text">Get it from: <code>localStorage.getItem('access_token')</code></p>
+        </div>
+
+        <!-- Upload Section -->
+        <div class="section">
+            <label for="fileInput">Select Logo Image</label>
+            <input type="file" id="fileInput" accept="image/png,image/jpeg,image/svg+xml,image/webp">
+            <p class="help-text">Supported: PNG, JPG, SVG, WEBP</p>
+        </div>
+
+        <!-- Action Buttons -->
+        <button class="btn" id="uploadBtn" onclick="uploadLogo()">
+            📤 Upload Logo
+        </button>
+
+        <div class="btn-group">
+            <button class="btn btn-secondary" onclick="listAssets()">
+                📋 List Assets
+            </button>
+            <button class="btn btn-secondary" onclick="applyBranding()">
+                ✅ Apply Branding
+            </button>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-secondary" onclick="getTheme()">
+                🎨 Get Theme
+            </button>
+            <button class="btn btn-danger" id="deleteBtn" onclick="deleteLastAsset()" disabled>
+                🗑️ Delete Last Upload
+            </button>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p style="margin-top: 10px; color: #666;">Processing...</p>
+        </div>
+
+        <!-- Preview -->
+        <div class="preview" id="preview">
+            <img id="previewImg" src="" alt="Uploaded logo">
+            <div class="file-info" id="fileInfo"></div>
+        </div>
+
+        <!-- Result Display -->
+        <div id="result"></div>
+    </div>
+
+    <script>
+        let lastAssetId = null;
+
+        function getConfig() {
+            const apiUrl = document.getElementById('apiUrl').value.trim();
+            const token = document.getElementById('token').value.trim();
+
+            if (!token) {
+                showResult('Please enter an access token', 'error');
+                return null;
+            }
+
+            return { apiUrl, token };
+        }
+
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+        }
+
+        function showResult(message, type = 'info') {
+            const result = document.getElementById('result');
+            result.textContent = message;
+            result.className = `result-${type}`;
+            result.style.display = 'block';
+        }
+
+        function showPreview(url, info) {
+            const preview = document.getElementById('preview');
+            const previewImg = document.getElementById('previewImg');
+            const fileInfo = document.getElementById('fileInfo');
+
+            previewImg.src = url;
+            fileInfo.innerHTML = info;
+            preview.style.display = 'block';
+        }
+
+        function hidePreview() {
+            document.getElementById('preview').style.display = 'none';
+        }
+
+        async function uploadLogo() {
+            const config = getConfig();
+            if (!config) return;
+
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                showResult('Please select a file first', 'error');
+                return;
+            }
+
+            showLoading(true);
+            hidePreview();
+
+            try {
+                const formData = new FormData();
+                formData.append('asset_type', 'logo');
+                formData.append('file', file);
+
+                const response = await fetch(`${config.apiUrl}/api/branding/upload`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${config.token}`
+                    },
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    lastAssetId = data.id;
+                    document.getElementById('deleteBtn').disabled = false;
+
+                    const info = `
+                        <strong>File:</strong> ${data.original_name}<br>
+                        <strong>Size:</strong> ${formatBytes(data.file_size)}<br>
+                        <strong>Type:</strong> ${data.mime_type}<br>
+                        <strong>ID:</strong> ${data.id}
+                    `;
+
+                    showPreview(data.url, info);
+                    showResult(`✅ Upload successful!\n\n${JSON.stringify(data, null, 2)}`, 'success');
+                } else {
+                    showResult(`❌ Upload failed (${response.status}):\n\n${JSON.stringify(data, null, 2)}`, 'error');
+                }
+            } catch (error) {
+                showResult(`❌ Error: ${error.message}`, 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        async function listAssets() {
+            const config = getConfig();
+            if (!config) return;
+
+            showLoading(true);
+            hidePreview();
+
+            try {
+                const response = await fetch(`${config.apiUrl}/api/branding/assets`, {
+                    headers: {
+                        'Authorization': `Bearer ${config.token}`
+                    }
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    if (data.assets && data.assets.length > 0) {
+                        const logoAsset = data.assets.find(a => a.asset_type === 'logo');
+                        if (logoAsset) {
+                            lastAssetId = logoAsset.id;
+                            document.getElementById('deleteBtn').disabled = false;
+                        }
+                    }
+
+                    showResult(`📋 Assets List:\n\n${JSON.stringify(data, null, 2)}`, 'info');
+                } else {
+                    showResult(`❌ Failed to list assets (${response.status}):\n\n${JSON.stringify(data, null, 2)}`, 'error');
+                }
+            } catch (error) {
+                showResult(`❌ Error: ${error.message}`, 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        async function applyBranding() {
+            const config = getConfig();
+            if (!config) return;
+
+            showLoading(true);
+
+            try {
+                const response = await fetch(`${config.apiUrl}/api/branding/apply`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${config.token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ apply_logo: true })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showResult(`✅ Branding applied!\n\n${JSON.stringify(data, null, 2)}`, 'success');
+                } else {
+                    showResult(`❌ Failed to apply branding (${response.status}):\n\n${JSON.stringify(data, null, 2)}`, 'error');
+                }
+            } catch (error) {
+                showResult(`❌ Error: ${error.message}`, 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        async function getTheme() {
+            const config = getConfig();
+            if (!config) return;
+
+            showLoading(true);
+            hidePreview();
+
+            try {
+                const response = await fetch(`${config.apiUrl}/api/user/theme`, {
+                    headers: {
+                        'Authorization': `Bearer ${config.token}`
+                    }
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    const logoUrl = data.logo_url;
+                    if (logoUrl) {
+                        showResult(`🎨 Theme data (logo_url found):\n\n${JSON.stringify(data, null, 2)}`, 'success');
+                    } else {
+                        showResult(`🎨 Theme data (no logo_url):\n\n${JSON.stringify(data, null, 2)}`, 'info');
+                    }
+                } else {
+                    showResult(`❌ Failed to get theme (${response.status}):\n\n${JSON.stringify(data, null, 2)}`, 'error');
+                }
+            } catch (error) {
+                showResult(`❌ Error: ${error.message}`, 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        async function deleteLastAsset() {
+            if (!lastAssetId) {
+                showResult('No asset to delete. Upload or list assets first.', 'error');
+                return;
+            }
+
+            if (!confirm('Are you sure you want to delete this asset?')) {
+                return;
+            }
+
+            const config = getConfig();
+            if (!config) return;
+
+            showLoading(true);
+            hidePreview();
+
+            try {
+                const response = await fetch(`${config.apiUrl}/api/branding/assets/${lastAssetId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${config.token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    showResult(`✅ Asset deleted!\n\n${JSON.stringify(data, null, 2)}`, 'success');
+                    lastAssetId = null;
+                    document.getElementById('deleteBtn').disabled = true;
+                } else {
+                    const data = await response.json();
+                    showResult(`❌ Failed to delete asset (${response.status}):\n\n${JSON.stringify(data, null, 2)}`, 'error');
+                }
+            } catch (error) {
+                showResult(`❌ Error: ${error.message}`, 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function formatBytes(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+
+        // Auto-fill token from localStorage if available
+        window.addEventListener('DOMContentLoaded', () => {
+            try {
+                const token = localStorage.getItem('access_token');
+                if (token) {
+                    document.getElementById('token').value = token;
+                }
+            } catch (e) {
+                // Ignore if localStorage not available
+            }
+        });
+    </script>
+</body>
+</html>
