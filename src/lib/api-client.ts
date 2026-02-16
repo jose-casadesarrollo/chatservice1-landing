@@ -230,14 +230,52 @@ export interface CreateDocumentRequest {
   keywords?: string[];
 }
 
+export interface UpdateDocumentRequest {
+  title?: string;
+  category?: KnowledgeBaseCategory;
+  description?: string;
+  keywords?: string;
+}
+
+export interface FileContentResponse {
+  id: string;
+  content: string;
+  mime_type: string;
+  title: string;
+}
+
+export interface FilePreviewResponse {
+  id: string;
+  title: string;
+  content: string;
+  mime_type: string;
+  file_size: number;
+  category: KnowledgeBaseCategory;
+  processing_status: ProcessingStatus;
+  created_at: string;
+}
+
+export interface SearchDocumentsResponse {
+  results: KnowledgeBaseDocument[];
+  total: number;
+  query: string;
+}
+
+export interface ReprocessResponse {
+  id: string;
+  status: ProcessingStatus;
+  message: string;
+}
+
 // Helper function for multipart/form-data uploads
 async function apiUpload<T>(
   endpoint: string,
   formData: FormData,
-  token: string
+  token: string,
+  method: "POST" | "PUT" = "POST"
 ): Promise<T> {
   const response = await fetch(`${API_BASE}${endpoint}`, {
-    method: "POST",
+    method,
     headers: {
       Authorization: `Bearer ${token}`,
       // Note: Don't set Content-Type for FormData - browser sets it with boundary
@@ -323,4 +361,58 @@ export const knowledgeBaseApi = {
       method: "POST",
       body: data,
     }),
+
+  getFile: (token: string, fileId: string) =>
+    apiClient<KnowledgeBaseDocument>(
+      `/api/knowledge-base/files/${fileId}`,
+      { token }
+    ),
+
+  getFileContent: (token: string, fileId: string) =>
+    apiClient<FileContentResponse>(
+      `/api/knowledge-base/files/${fileId}/content`,
+      { token }
+    ),
+
+  previewFile: (token: string, fileId: string) =>
+    apiClient<FilePreviewResponse>(
+      `/api/knowledge-base/files/${fileId}/preview`,
+      { token }
+    ),
+
+  searchDocuments: (
+    token: string,
+    params: { q: string; category?: KnowledgeBaseCategory; limit?: number }
+  ) => {
+    const searchParams = new URLSearchParams();
+    searchParams.set("q", params.q);
+    if (params.category) searchParams.set("category", params.category);
+    if (params.limit) searchParams.set("limit", String(params.limit));
+
+    return apiClient<SearchDocumentsResponse>(
+      `/api/knowledge-base/search?${searchParams.toString()}`,
+      { token }
+    );
+  },
+
+  updateFile: (token: string, fileId: string, data: UpdateDocumentRequest) => {
+    const formData = new FormData();
+    if (data.title) formData.append("title", data.title);
+    if (data.category) formData.append("category", data.category);
+    if (data.description) formData.append("description", data.description);
+    if (data.keywords) formData.append("keywords", data.keywords);
+
+    return apiUpload<KnowledgeBaseDocument>(
+      `/api/knowledge-base/files/${fileId}`,
+      formData,
+      token,
+      "PUT"
+    );
+  },
+
+  reprocessFile: (token: string, fileId: string) =>
+    apiClient<ReprocessResponse>(
+      `/api/knowledge-base/files/${fileId}/reprocess`,
+      { token, method: "POST" }
+    ),
 };

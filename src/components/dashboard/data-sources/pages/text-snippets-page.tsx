@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import {
   Button,
   Input,
+  Textarea,
   Tooltip,
   Chip,
   Spinner,
@@ -230,9 +231,11 @@ export default function TextSnippetsPage() {
           {/* Add Snippet Section */}
           <div className="flex flex-col rounded-lg border border-divider">
             {/* Collapsible Header */}
-            <button
-              onClick={() => setIsAddSnippetOpen(!isAddSnippetOpen)}
-              className="flex w-full items-center justify-between px-4 py-3 text-left transition-colors hover:bg-default-50"
+            <Button
+              variant="light"
+              fullWidth
+              onPress={() => setIsAddSnippetOpen(!isAddSnippetOpen)}
+              className="flex items-center justify-between px-4 py-3 h-auto min-h-0 rounded-none data-[hover=true]:bg-default-50"
             >
               <span className="text-sm font-medium text-foreground">Add text snippet</span>
               <Icon
@@ -243,7 +246,7 @@ export default function TextSnippetsPage() {
                   isAddSnippetOpen && "rotate-180"
                 )}
               />
-            </button>
+            </Button>
 
             {isAddSnippetOpen && (
               <div className="flex flex-col px-4 pb-4">
@@ -260,12 +263,15 @@ export default function TextSnippetsPage() {
                   <div className="mb-4 flex items-center gap-2 rounded-lg bg-danger-50 px-3 py-2 text-danger">
                     <Icon icon="solar:danger-triangle-linear" width={16} />
                     <span className="text-sm">{submitError}</span>
-                    <button
-                      onClick={() => setSubmitError(null)}
-                      className="ml-auto text-danger hover:text-danger-600"
+                    <Button
+                      isIconOnly
+                      variant="light"
+                      size="sm"
+                      onPress={() => setSubmitError(null)}
+                      className="ml-auto text-danger min-w-6 w-6 h-6"
                     >
                       <Icon icon="solar:close-circle-linear" width={16} />
-                    </button>
+                    </Button>
                   </div>
                 )}
 
@@ -301,15 +307,18 @@ export default function TextSnippetsPage() {
                         }
                         return (
                           <Tooltip key={btn.icon} content={btn.tooltip} size="sm">
-                            <button
-                              className="flex items-center gap-0.5 rounded p-1.5 text-default-500 transition-colors hover:bg-default-100 hover:text-default-700"
-                              disabled={isSubmitting}
+                            <Button
+                              isIconOnly
+                              variant="light"
+                              size="sm"
+                              isDisabled={isSubmitting}
+                              className="min-w-7 w-7 h-7 text-default-500 data-[hover=true]:text-default-700"
                             >
                               <Icon icon={btn.icon!} width={16} />
                               {btn.hasDropdown && (
                                 <Icon icon="solar:alt-arrow-down-linear" width={12} />
                               )}
-                            </button>
+                            </Button>
                           </Tooltip>
                         );
                       })}
@@ -326,12 +335,17 @@ export default function TextSnippetsPage() {
                   </div>
 
                   {/* Text Area */}
-                  <textarea
+                  <Textarea
                     value={content}
-                    onChange={(e) => setContent(e.target.value)}
+                    onValueChange={setContent}
                     placeholder="Enter your text snippet content..."
-                    disabled={isSubmitting}
-                    className="flex-1 resize-none bg-transparent p-3 text-sm text-foreground placeholder:text-default-300 focus:outline-none disabled:opacity-50"
+                    isDisabled={isSubmitting}
+                    minRows={6}
+                    variant="flat"
+                    classNames={{
+                      inputWrapper: "bg-transparent shadow-none p-0 border-none",
+                      input: "px-3 py-2 text-sm",
+                    }}
                   />
 
                   {/* Footer with Add Button */}

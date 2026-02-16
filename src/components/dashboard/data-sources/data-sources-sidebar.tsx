@@ -192,13 +192,17 @@ export default function DataSourcesSidebar({ onRetrain, refreshTrigger }: DataSo
           )}
 
           {/* Upgrade Link */}
-          <button className="flex items-center justify-between rounded-lg border border-warning-200 bg-warning-50 px-3 py-2.5 text-left transition-colors hover:bg-warning-100">
+          <Button
+            variant="flat"
+            className="flex items-center justify-between rounded-lg border border-warning-200 bg-warning-50 px-3 py-2.5 text-left transition-colors hover:bg-warning-100 h-auto min-h-0"
+            fullWidth
+          >
             <div className="flex items-center gap-2">
               <Icon icon="solar:info-circle-linear" width={16} className="text-warning-600" />
               <span className="text-sm text-default-700">Upgrade to train on more data</span>
             </div>
             <Icon icon="solar:alt-arrow-right-linear" width={16} className="text-default-400" />
-          </button>
+          </Button>
         </CardBody>
       </Card>
     </div>

@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import {
   Button,
   Chip,
+  Link,
   Spinner,
   Tooltip,
   Modal,
@@ -20,6 +21,7 @@ import { useAuth } from "@/contexts/auth-context";
 import {
   knowledgeBaseApi,
   type KnowledgeBaseDocument,
+  type KnowledgeBaseStats,
   type ProcessingStatus,
 } from "@/lib/api-client";
 
@@ -101,6 +103,9 @@ export default function FilesPage() {
   // Polling state for processing files
   const [pollingIds, setPollingIds] = useState<string[]>([]);
 
+  // Stats state for limit checking
+  const [stats, setStats] = useState<KnowledgeBaseStats | null>(null);
+
   // Sidebar refresh trigger
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
@@ -112,6 +117,17 @@ export default function FilesPage() {
   // Action loading states
   const [togglingIds, setTogglingIds] = useState<Set<string>>(new Set());
 
+  // Fetch stats for limit checking
+  const fetchStats = useCallback(async () => {
+    if (!token) return;
+    try {
+      const data = await knowledgeBaseApi.getStats(token);
+      setStats(data);
+    } catch (err) {
+      console.error("Failed to fetch stats:", err);
+    }
+  }, [token]);
+
   // Fetch files on mount
   const fetchFiles = useCallback(async () => {
     if (!token) return;
@@ -120,7 +136,10 @@ export default function FilesPage() {
     setError(null);
 
     try {
-      const response = await knowledgeBaseApi.listFiles(token);
+      const [response] = await Promise.all([
+        knowledgeBaseApi.listFiles(token),
+        fetchStats(),
+      ]);
       setFiles(response.files);
 
       // Check for any files that need status polling
@@ -136,7 +155,7 @@ export default function FilesPage() {
     } finally {
       setIsLoading(false);
     }
-  }, [token]);
+  }, [token, fetchStats]);
 
   useEffect(() => {
     fetchFiles();
@@ -241,8 +260,9 @@ export default function FilesPage() {
           prev.map((f, idx) => (idx === i ? { ...f, progress: "done" } : f))
         );
 
-        // Refresh sidebar
+        // Refresh sidebar and local stats
         setRefreshTrigger((t) => t + 1);
+        fetchStats();
       } catch (err) {
         setUploadingFiles((prev) =>
           prev.map((f, idx) => (idx === i ? { ...f, progress: "error" } : f))
@@ -309,6 +329,7 @@ export default function FilesPage() {
       await knowledgeBaseApi.deleteFile(token, fileToDelete.id);
       setFiles((prev) => prev.filter((f) => f.id !== fileToDelete.id));
       setRefreshTrigger((t) => t + 1);
+      fetchStats();
       onDeleteClose();
       setFileToDelete(null);
     } catch (err) {
@@ -341,8 +362,10 @@ export default function FilesPage() {
     }
   };
 
-  // Check if limit exceeded (based on files count)
-  const isLimitExceeded = files.length >= 20;
+  // Check if limit exceeded using API stats
+  const isLimitExceeded = stats
+    ? stats.total_documents >= stats.max_documents
+    : false;
 
   return (
     <div className="flex h-[calc(100vh-180px)] flex-col">
@@ -380,9 +403,11 @@ export default function FilesPage() {
           {/* Add Files Section */}
           <div className="flex flex-col rounded-lg border border-divider">
             {/* Collapsible Header */}
-            <button
-              onClick={() => setIsAddFilesOpen(!isAddFilesOpen)}
-              className="flex w-full items-center justify-between px-4 py-3 text-left transition-colors hover:bg-default-50"
+            <Button
+              variant="light"
+              fullWidth
+              onPress={() => setIsAddFilesOpen(!isAddFilesOpen)}
+              className="flex items-center justify-between px-4 py-3 h-auto min-h-0 rounded-none data-[hover=true]:bg-default-50"
             >
               <span className="text-sm font-medium text-foreground">Add files</span>
               <Icon
@@ -393,7 +418,7 @@ export default function FilesPage() {
                   isAddFilesOpen && "rotate-180"
                 )}
               />
-            </button>
+            </Button>
 
             {isAddFilesOpen && (
               <div className="flex flex-col px-4 pb-4">
@@ -410,12 +435,15 @@ export default function FilesPage() {
                   <div className="mb-4 flex items-center gap-2 rounded-lg bg-danger-50 px-3 py-2 text-danger">
                     <Icon icon="solar:danger-triangle-linear" width={16} />
                     <span className="text-sm">{uploadError}</span>
-                    <button
-                      onClick={() => setUploadError(null)}
-                      className="ml-auto text-danger hover:text-danger-600"
+                    <Button
+                      isIconOnly
+                      variant="light"
+                      size="sm"
+                      onPress={() => setUploadError(null)}
+                      className="ml-auto text-danger min-w-6 w-6 h-6"
                     >
                       <Icon icon="solar:close-circle-linear" width={16} />
-                    </button>
+                    </Button>
                   </div>
                 )}
 
@@ -452,12 +480,14 @@ export default function FilesPage() {
                         <div className="flex flex-col gap-1">
                           <p className="text-sm text-default-600">
                             Drag and drop files here, or{" "}
-                            <button
-                              onClick={handleBrowseClick}
-                              className="text-primary hover:underline"
+                            <Link
+                              as="button"
+                              size="sm"
+                              onPress={handleBrowseClick}
+                              className="text-sm"
                             >
                               browse
-                            </button>
+                            </Link>
                           </p>
                           <p className="text-xs text-default-400">
                             PDF, DOCX, TXT, MD, CSV up to 500KB each
