@@ -28,6 +28,26 @@
     "faq": "FAQ Section",
     "cta": "CTA Section"
   },
+  "features": {
+    "label": "Features",
+    "title": "Everything you need to deliver exceptional customer support",
+    "feature1": {
+      "title": "Intelligent Conversations",
+      "description": "AI-powered chat that understands context and provides meaningful responses to your customers."
+    },
+    "feature2": {
+      "title": "Lightning Fast",
+      "description": "Instant responses with sub-second latency. Keep your customers engaged without delays."
+    },
+    "feature3": {
+      "title": "Enterprise Security",
+      "description": "Bank-grade encryption and compliance. Your data is protected with industry-leading security standards. SOC2 and GDPR compliant."
+    },
+    "feature4": {
+      "title": "Analytics Dashboard",
+      "description": "Gain insights into customer behavior with comprehensive analytics. Track conversations, measure satisfaction, and optimize your support workflow."
+    }
+  },
   "howItWorks": {
     "label": "How It Works",
     "title": "Get started in three simple steps",
@@ -43,6 +63,175 @@
     "step3": {
       "title": "Customize & Launch",
       "description": "Fine-tune your chat widget's appearance to match your brand. Train your AI agent with your FAQs and documentation, then go live instantly."
+    }
+  },
+  "testimonials": {
+    "label": "Testimonials",
+    "title": "What our customers say",
+    "t1": {
+      "quote": "ChatService transformed our support workflow. Response times dropped by 80% and customer satisfaction is at an all-time high.",
+      "name": "Sarah Chen",
+      "role": "Head of Customer Success",
+      "company": "TechFlow"
+    },
+    "t2": {
+      "quote": "The AI understands context so well that most customers don't even realize they're chatting with a bot. It's been a game-changer for our team.",
+      "name": "Marcus Rivera",
+      "role": "VP of Operations",
+      "company": "ScaleUp"
+    },
+    "t3": {
+      "quote": "We deployed ChatService across 12 markets in 3 languages. The multilingual support and analytics dashboard are incredible.",
+      "name": "Emma Johansson",
+      "role": "CTO",
+      "company": "NordicSaaS"
+    }
+  },
+  "pricing": {
+    "label": "Pricing",
+    "title": "Simple, transparent pricing",
+    "subtitle": "Start free and scale as you grow. No hidden fees.",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "yearlyDiscount": "Save 20%",
+    "mo": "/mo",
+    "popular": "Popular",
+    "free": {
+      "name": "Free",
+      "price": "$0",
+      "description": "Perfect for trying out ChatService",
+      "features": ["100 conversations/mo", "1 AI agent", "Basic analytics", "Email support", "Community access"],
+      "cta": "Get Started"
+    },
+    "pro": {
+      "name": "Pro",
+      "priceMonthly": "$49",
+      "priceYearly": "$39",
+      "description": "For growing businesses that need more",
+      "features": ["Unlimited conversations", "5 AI agents", "Advanced analytics", "Priority support", "Custom branding", "API access", "Integrations"],
+      "cta": "Start Free Trial"
+    },
+    "enterprise": {
+      "name": "Enterprise",
+      "price": "Custom",
+      "description": "For large teams with advanced needs",
+      "features": ["Everything in Pro", "Unlimited agents", "SSO & SAML", "Dedicated account manager", "Custom integrations", "SLA guarantee", "On-premise option"],
+      "cta": "Contact Us"
+    }
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Frequently asked questions",
+    "q1": {
+      "question": "What is ChatService?",
+      "answer": "ChatService is an AI-powered customer support platform that lets you deploy intelligent chat agents on your website. Our agents understand context, learn from your knowledge base, and provide human-like responses to your customers 24/7."
+    },
+    "q2": {
+      "question": "How does the AI work?",
+      "answer": "Our AI is built on state-of-the-art large language models fine-tuned for customer support. You train it with your FAQs, documentation, and past conversations. It continuously learns and improves from interactions while staying within your defined guidelines."
+    },
+    "q3": {
+      "question": "Is my data secure?",
+      "answer": "Absolutely. We use bank-grade AES-256 encryption for data at rest and TLS 1.3 for data in transit. We're SOC2 Type II and GDPR compliant. Your data is never used to train our models, and you can request full deletion at any time."
+    },
+    "q4": {
+      "question": "What integrations do you support?",
+      "answer": "ChatService integrates with Slack, Zendesk, HubSpot, Salesforce, Intercom, WhatsApp, and more. We also offer a REST API and webhooks so you can connect with any tool in your stack."
+    },
+    "q5": {
+      "question": "Can I try it before committing?",
+      "answer": "Yes! Our Free plan lets you run up to 100 conversations per month at no cost. No credit card required. You can upgrade to Pro anytime to unlock unlimited conversations and advanced features."
+    },
+    "q6": {
+      "question": "Does it support multiple languages?",
+      "answer": "Yes. ChatService supports over 50 languages out of the box. Your AI agent can automatically detect the customer's language and respond accordingly, making it perfect for global businesses."
+    }
+  },
+  "cta": {
+    "title": "Ready to transform your customer experience?",
+    "subtitle": "Join thousands of businesses using ChatService to deliver instant, intelligent support around the clock.",
+    "primaryCta": "Get Started Free",
+    "secondaryCta": "Contact Sales",
+    "reassurance": "No credit card required"
+  },
+  "highlights": {
+    "badge": "Highlights",
+    "title": "The complete platform for AI support agents",
+    "description": "ChatService1 is designed for building AI support agents that solve your customers' hardest problems while improving business outcomes.",
+    "card1": {
+      "title": "Purpose-built for LLMs",
+      "description": "Language models with reasoning capabilities for effective responses to complex queries."
+    },
+    "card2": {
+      "title": "Designed for simplicity",
+      "description": "Create, manage, and deploy AI Agents easily, even without technical skills.",
+      "createAgent": "Create agent",
+      "replyWithAI": "Reply with AI"
+    },
+    "card3": {
+      "title": "Engineered for security",
+      "description": "Enjoy peace of mind with robust encryption and strict compliance standards."
+    }
+  },
+  "bentoFeatures": {
+    "badge": "Features",
+    "title": "Build the perfect customer-facing AI agent",
+    "description": "ChatService1 gives you all the tools you need to train your perfect AI agent and connect it to your systems.",
+    "card1": {
+      "title": "Sync with real-time data",
+      "description": "Connect your agent to systems like order management tools, CRMs, and more to seamlessly access data ranging from order details to active subscriptions and beyond.",
+      "userMessage": "What's the status of my order?",
+      "botMessage": "Here's your order status:",
+      "orderStatus": "Out for delivery",
+      "orderArrival": "Arriving Sunday"
+    },
+    "card2": {
+      "title": "Take actions on your systems",
+      "description": "Configure actions that your agent can perform within your systems or through one of our integrations, like updating a customer's subscription or changing their address.",
+      "updateSubscription": "Update subscription",
+      "updateDatabase": "Update database",
+      "aiAction": "AI action",
+      "planUpdated": "Plan updated",
+      "proPlan": "Pro plan"
+    },
+    "card3": {
+      "title": "Compare AI models",
+      "description": "Experiment with various models and configurations to make sure you have the best setup for your use case.",
+      "userMessage": "I'm not sure which plan is right for me. Can you help?"
+    },
+    "card4": {
+      "title": "Smart escalation",
+      "description": "Give your agent instructions in natural language on when to escalate queries to a human agents.",
+      "userMessage": "Hey, I would like a refund",
+      "botMessage": "Sure, let's create a ticket!",
+      "ticketSubmitted": "Ticket submitted",
+      "ticketNumber": "Ticket #234",
+      "ticketStatus": "Open",
+      "ticketTime": "12m ago"
+    },
+    "card5": {
+      "title": "Advanced reporting",
+      "description": "Gain insights and optimize agent performance with detailed analytics.",
+      "topics": "Topics",
+      "accountSetup": "Account setup",
+      "positive": "Positive",
+      "negative": "Negative"
+    },
+    "integrations": {
+      "title": "Works with your tools",
+      "description": "Integrate diverse data sources to enrich your agent's knowledge and capabilities."
+    },
+    "mini1": {
+      "title": "API",
+      "description": "APIs, client libraries, and components to deeply integrate support into your product."
+    },
+    "mini2": {
+      "title": "Whitelabel",
+      "description": "Remove any ChatService1 branding from the chat widget."
+    },
+    "mini3": {
+      "title": "Always improving",
+      "description": "Syncs with your systems and learns from previous interactions."
     }
   },
   "login": {

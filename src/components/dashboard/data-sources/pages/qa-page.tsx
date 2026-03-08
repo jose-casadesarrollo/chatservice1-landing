@@ -255,7 +255,7 @@ export default function QAPage() {
     !isSubmitting;
 
   return (
-    <div className="flex h-[calc(100vh-180px)] flex-col">
+    <div className="flex flex-1 min-h-0 flex-col">
       {/* Header - Full Width */}
       <div className="flex items-start justify-between">
         <div className="flex flex-col gap-1">

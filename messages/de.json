@@ -28,6 +28,26 @@
     "faq": "FAQ Bereich",
     "cta": "CTA Bereich"
   },
+  "features": {
+    "label": "Funktionen",
+    "title": "Alles was Sie brauchen, um außergewöhnlichen Kundensupport zu bieten",
+    "feature1": {
+      "title": "Intelligente Gespräche",
+      "description": "KI-gestützter Chat, der den Kontext versteht und Ihren Kunden bedeutungsvolle Antworten liefert."
+    },
+    "feature2": {
+      "title": "Blitzschnell",
+      "description": "Sofortige Antworten mit Latenzzeiten unter einer Sekunde. Halten Sie Ihre Kunden ohne Verzögerungen engagiert."
+    },
+    "feature3": {
+      "title": "Enterprise-Sicherheit",
+      "description": "Verschlüsselung und Compliance auf Bankniveau. Ihre Daten sind mit branchenführenden Sicherheitsstandards geschützt. SOC2- und DSGVO-konform."
+    },
+    "feature4": {
+      "title": "Analytics-Dashboard",
+      "description": "Gewinnen Sie Einblicke in das Kundenverhalten mit umfassenden Analysen. Verfolgen Sie Gespräche, messen Sie die Zufriedenheit und optimieren Sie Ihren Support-Workflow."
+    }
+  },
   "howItWorks": {
     "label": "So Funktioniert Es",
     "title": "Starten Sie in drei einfachen Schritten",
@@ -43,6 +63,175 @@
     "step3": {
       "title": "Anpassen und Starten",
       "description": "Passen Sie das Erscheinungsbild Ihres Chat-Widgets an Ihre Marke an. Trainieren Sie Ihren KI-Agenten mit Ihren FAQs und Dokumentationen und gehen Sie sofort live."
+    }
+  },
+  "testimonials": {
+    "label": "Kundenstimmen",
+    "title": "Was unsere Kunden sagen",
+    "t1": {
+      "quote": "ChatService hat unseren Support-Workflow transformiert. Die Antwortzeiten sanken um 80% und die Kundenzufriedenheit ist auf einem Allzeithoch.",
+      "name": "Sarah Chen",
+      "role": "Leiterin Kundenerfolg",
+      "company": "TechFlow"
+    },
+    "t2": {
+      "quote": "Die KI versteht den Kontext so gut, dass die meisten Kunden nicht einmal merken, dass sie mit einem Bot chatten. Es war ein Wendepunkt für unser Team.",
+      "name": "Marcus Rivera",
+      "role": "VP Operations",
+      "company": "ScaleUp"
+    },
+    "t3": {
+      "quote": "Wir haben ChatService in 12 Märkten in 3 Sprachen eingesetzt. Die mehrsprachige Unterstützung und das Analytics-Dashboard sind unglaublich.",
+      "name": "Emma Johansson",
+      "role": "CTO",
+      "company": "NordicSaaS"
+    }
+  },
+  "pricing": {
+    "label": "Preise",
+    "title": "Einfache, transparente Preise",
+    "subtitle": "Starten Sie kostenlos und skalieren Sie mit Ihrem Wachstum. Keine versteckten Gebühren.",
+    "monthly": "Monatlich",
+    "yearly": "Jährlich",
+    "yearlyDiscount": "20% sparen",
+    "mo": "/Mo",
+    "popular": "Beliebt",
+    "free": {
+      "name": "Kostenlos",
+      "price": "$0",
+      "description": "Perfekt zum Ausprobieren von ChatService",
+      "features": ["100 Gespräche/Mo", "1 KI-Agent", "Basis-Analysen", "E-Mail-Support", "Community-Zugang"],
+      "cta": "Loslegen"
+    },
+    "pro": {
+      "name": "Pro",
+      "priceMonthly": "$49",
+      "priceYearly": "$39",
+      "description": "Für wachsende Unternehmen die mehr brauchen",
+      "features": ["Unbegrenzte Gespräche", "5 KI-Agenten", "Erweiterte Analysen", "Prioritäts-Support", "Eigenes Branding", "API-Zugang", "Integrationen"],
+      "cta": "Kostenlos testen"
+    },
+    "enterprise": {
+      "name": "Enterprise",
+      "price": "Individuell",
+      "description": "Für große Teams mit erweiterten Anforderungen",
+      "features": ["Alles in Pro", "Unbegrenzte Agenten", "SSO & SAML", "Dedizierter Account Manager", "Individuelle Integrationen", "SLA-Garantie", "On-Premise-Option"],
+      "cta": "Kontaktieren Sie uns"
+    }
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Häufig gestellte Fragen",
+    "q1": {
+      "question": "Was ist ChatService?",
+      "answer": "ChatService ist eine KI-gestützte Kundensupport-Plattform, mit der Sie intelligente Chat-Agenten auf Ihrer Website einsetzen können. Unsere Agenten verstehen den Kontext, lernen aus Ihrer Wissensbasis und liefern menschenähnliche Antworten rund um die Uhr."
+    },
+    "q2": {
+      "question": "Wie funktioniert die KI?",
+      "answer": "Unsere KI basiert auf modernsten großen Sprachmodellen, die für den Kundensupport optimiert sind. Sie trainieren sie mit Ihren FAQs, Dokumentationen und vergangenen Gesprächen. Sie lernt kontinuierlich und verbessert sich durch Interaktionen, während sie Ihren definierten Richtlinien folgt."
+    },
+    "q3": {
+      "question": "Sind meine Daten sicher?",
+      "answer": "Absolut. Wir verwenden AES-256-Verschlüsselung auf Bankniveau für ruhende Daten und TLS 1.3 für Daten während der Übertragung. Wir sind SOC2 Typ II und DSGVO-konform. Ihre Daten werden niemals zum Trainieren unserer Modelle verwendet, und Sie können jederzeit eine vollständige Löschung anfordern."
+    },
+    "q4": {
+      "question": "Welche Integrationen werden unterstützt?",
+      "answer": "ChatService integriert sich mit Slack, Zendesk, HubSpot, Salesforce, Intercom, WhatsApp und mehr. Wir bieten auch eine REST-API und Webhooks an, damit Sie sich mit jedem Tool in Ihrem Stack verbinden können."
+    },
+    "q5": {
+      "question": "Kann ich es vor einer Verpflichtung testen?",
+      "answer": "Ja! Unser kostenloser Plan ermöglicht Ihnen bis zu 100 Gespräche pro Monat ohne Kosten. Keine Kreditkarte erforderlich. Sie können jederzeit auf Pro upgraden, um unbegrenzte Gespräche und erweiterte Funktionen freizuschalten."
+    },
+    "q6": {
+      "question": "Werden mehrere Sprachen unterstützt?",
+      "answer": "Ja. ChatService unterstützt über 50 Sprachen standardmäßig. Ihr KI-Agent kann die Sprache des Kunden automatisch erkennen und entsprechend antworten – perfekt für globale Unternehmen."
+    }
+  },
+  "cta": {
+    "title": "Bereit, Ihr Kundenerlebnis zu transformieren?",
+    "subtitle": "Schließen Sie sich Tausenden von Unternehmen an, die ChatService nutzen, um sofortigen, intelligenten Support rund um die Uhr zu bieten.",
+    "primaryCta": "Kostenlos starten",
+    "secondaryCta": "Vertrieb kontaktieren",
+    "reassurance": "Keine Kreditkarte erforderlich"
+  },
+  "highlights": {
+    "badge": "Highlights",
+    "title": "Die komplette Plattform für KI-Support-Agenten",
+    "description": "ChatService1 ist darauf ausgelegt, KI-Support-Agenten zu erstellen, die die schwierigsten Probleme Ihrer Kunden lösen und gleichzeitig die Geschäftsergebnisse verbessern.",
+    "card1": {
+      "title": "Speziell für LLMs entwickelt",
+      "description": "Sprachmodelle mit Reasoning-Fähigkeiten für effektive Antworten auf komplexe Anfragen."
+    },
+    "card2": {
+      "title": "Für Einfachheit konzipiert",
+      "description": "Erstellen, verwalten und deployen Sie KI-Agenten einfach, auch ohne technische Kenntnisse.",
+      "createAgent": "Agent erstellen",
+      "replyWithAI": "Mit KI antworten"
+    },
+    "card3": {
+      "title": "Für Sicherheit entwickelt",
+      "description": "Genießen Sie Sicherheit mit robuster Verschlüsselung und strengen Compliance-Standards."
+    }
+  },
+  "bentoFeatures": {
+    "badge": "Funktionen",
+    "title": "Erstellen Sie den perfekten kundenorientierten KI-Agenten",
+    "description": "ChatService1 bietet Ihnen alle Werkzeuge, die Sie benötigen, um Ihren perfekten KI-Agenten zu trainieren und mit Ihren Systemen zu verbinden.",
+    "card1": {
+      "title": "Synchronisierung mit Echtzeitdaten",
+      "description": "Verbinden Sie Ihren Agenten mit Systemen wie Bestellverwaltungstools, CRMs und mehr, um nahtlos auf Daten von Bestelldetails bis hin zu aktiven Abonnements zuzugreifen.",
+      "userMessage": "Wie ist der Status meiner Bestellung?",
+      "botMessage": "Hier ist Ihr Bestellstatus:",
+      "orderStatus": "In Zustellung",
+      "orderArrival": "Ankunft Sonntag"
+    },
+    "card2": {
+      "title": "Aktionen in Ihren Systemen ausführen",
+      "description": "Konfigurieren Sie Aktionen, die Ihr Agent in Ihren Systemen oder über eine unserer Integrationen ausführen kann, wie das Aktualisieren eines Kundenabonnements oder das Ändern der Adresse.",
+      "updateSubscription": "Abonnement aktualisieren",
+      "updateDatabase": "Datenbank aktualisieren",
+      "aiAction": "KI-Aktion",
+      "planUpdated": "Plan aktualisiert",
+      "proPlan": "Pro-Plan"
+    },
+    "card3": {
+      "title": "KI-Modelle vergleichen",
+      "description": "Experimentieren Sie mit verschiedenen Modellen und Konfigurationen, um das beste Setup für Ihren Anwendungsfall zu finden.",
+      "userMessage": "Ich bin mir nicht sicher, welcher Plan der richtige für mich ist. Können Sie helfen?"
+    },
+    "card4": {
+      "title": "Intelligente Eskalation",
+      "description": "Geben Sie Ihrem Agenten Anweisungen in natürlicher Sprache, wann Anfragen an menschliche Agenten eskaliert werden sollen.",
+      "userMessage": "Hallo, ich möchte eine Rückerstattung",
+      "botMessage": "Klar, lassen Sie uns ein Ticket erstellen!",
+      "ticketSubmitted": "Ticket eingereicht",
+      "ticketNumber": "Ticket #234",
+      "ticketStatus": "Offen",
+      "ticketTime": "vor 12 Min."
+    },
+    "card5": {
+      "title": "Erweiterte Berichterstattung",
+      "description": "Gewinnen Sie Einblicke und optimieren Sie die Agentenleistung mit detaillierten Analysen.",
+      "topics": "Themen",
+      "accountSetup": "Kontoeinrichtung",
+      "positive": "Positiv",
+      "negative": "Negativ"
+    },
+    "integrations": {
+      "title": "Funktioniert mit Ihren Tools",
+      "description": "Integrieren Sie vielfältige Datenquellen, um das Wissen und die Fähigkeiten Ihres Agenten zu bereichern."
+    },
+    "mini1": {
+      "title": "API",
+      "description": "APIs, Client-Bibliotheken und Komponenten zur tiefen Integration von Support in Ihr Produkt."
+    },
+    "mini2": {
+      "title": "Whitelabel",
+      "description": "Entfernen Sie jegliches ChatService1-Branding aus dem Chat-Widget."
+    },
+    "mini3": {
+      "title": "Ständig lernend",
+      "description": "Synchronisiert sich mit Ihren Systemen und lernt aus früheren Interaktionen."
     }
   },
   "login": {

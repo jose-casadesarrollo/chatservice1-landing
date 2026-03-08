@@ -10,10 +10,11 @@ export type DataSourcesTab =
   | "sources-qa"
   | "sources-integrations";
 
-export type DashboardTab = 
+export type DashboardTab =
   | "playground"
   | "activity"
   | "analytics"
+  | "conversations"
   | DataSourcesTab
   | "actions"
   | "deploy"

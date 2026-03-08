@@ -47,42 +47,41 @@ function FeatureCard({
 }
 
 export default function FeaturesSection() {
-  const t = useTranslations("sections");
+  const t = useTranslations("features");
 
   const features = [
     {
       icon: "solar:chat-round-dots-bold",
-      title: "Intelligent Conversations",
-      description:
-        "AI-powered chat that understands context and provides meaningful responses to your customers.",
+      title: t("feature1.title"),
+      description: t("feature1.description"),
     },
     {
       icon: "solar:bolt-circle-bold",
-      title: "Lightning Fast",
-      description:
-        "Instant responses with sub-second latency. Keep your customers engaged without delays.",
+      title: t("feature2.title"),
+      description: t("feature2.description"),
     },
     {
       icon: "solar:shield-check-bold",
-      title: "Enterprise Security",
-      description:
-        "Bank-grade encryption and compliance. Your data is protected with industry-leading security standards. SOC2 and GDPR compliant.",
+      title: t("feature3.title"),
+      description: t("feature3.description"),
     },
     {
       icon: "solar:chart-2-bold",
-      title: "Analytics Dashboard",
-      description:
-        "Gain insights into customer behavior with comprehensive analytics. Track conversations, measure satisfaction, and optimize your support workflow.",
+      title: t("feature4.title"),
+      description: t("feature4.description"),
     },
   ];
 
   return (
-    <section className="bg-black flex flex-col items-center justify-center rounded-2xl px-6 py-24 md:rounded-3xl md:py-32">
+    <section
+      id="features"
+      className="bg-black flex flex-col items-center justify-center rounded-2xl px-6 py-24 md:rounded-3xl md:py-32"
+    >
       <span className="text-default-500 mb-4 text-sm font-medium uppercase tracking-wider">
-        {t("features")}
+        {t("label")}
       </span>
       <h2 className="mb-12 max-w-2xl text-center text-3xl font-bold text-white md:text-4xl">
-        Everything you need to deliver exceptional customer support
+        {t("title")}
       </h2>
 
       {/* Mosaic Grid Layout */}

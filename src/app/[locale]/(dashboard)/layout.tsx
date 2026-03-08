@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import DashboardNavbar from "@/components/dashboard/dashboard-navbar";
+import DashboardSidebar from "@/components/dashboard/dashboard-sidebar";
 import {
   DashboardThemeProvider,
   useDashboardTheme,
@@ -55,9 +55,8 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-background text-foreground">
-      <DashboardNavbar />
-      <main className="flex-1 overflow-hidden">{children}</main>
+    <div className="h-screen overflow-hidden text-foreground">
+      <DashboardSidebar>{children}</DashboardSidebar>
     </div>
   );
 }

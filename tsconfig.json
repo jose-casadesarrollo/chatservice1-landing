@@ -30,5 +30,5 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "messaging-application", "pricing-with-most-popular-tier-highlighted", "sidebar-compact", "cursor-ide-browser", "mcp", "list-tools"]
 }

@@ -990,7 +990,7 @@ export default function ThemePlayground() {
 
   if (isLoading) {
     return (
-      <div className="flex h-[calc(100vh-140px)] w-full items-center justify-center">
+      <div className="flex h-full w-full items-center justify-center">
         <div className="flex flex-col items-center gap-3">
           <Spinner size="lg" />
           <span className="text-sm text-default-500">Loading theme...</span>
@@ -1005,7 +1005,7 @@ export default function ThemePlayground() {
 
   if (error || !theme) {
     return (
-      <div className="flex h-[calc(100vh-140px)] w-full items-center justify-center">
+      <div className="flex h-full w-full items-center justify-center">
         <div className="flex flex-col items-center gap-4 text-center">
           <Icon
             icon="solar:danger-triangle-linear"

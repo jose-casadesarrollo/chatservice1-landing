@@ -62,7 +62,7 @@ export default function HowItWorksSection() {
   ];
 
   return (
-    <section className="bg-gradient-3 flex flex-col items-center justify-center rounded-2xl px-6 py-24 md:rounded-3xl md:py-32">
+    <section id="how-it-works" className="bg-[#F9F9F8] flex flex-col items-center justify-center rounded-2xl px-6 py-24 md:rounded-3xl md:py-32">
       <span className="text-default-500 mb-4 text-sm font-medium uppercase tracking-wider">
         {t("label")}
       </span>

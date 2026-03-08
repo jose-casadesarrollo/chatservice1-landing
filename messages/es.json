@@ -28,6 +28,26 @@
     "faq": "Sección de Preguntas Frecuentes",
     "cta": "Sección de Llamada a la Acción"
   },
+  "features": {
+    "label": "Características",
+    "title": "Todo lo que necesitas para brindar un soporte al cliente excepcional",
+    "feature1": {
+      "title": "Conversaciones Inteligentes",
+      "description": "Chat impulsado por IA que entiende el contexto y proporciona respuestas significativas a tus clientes."
+    },
+    "feature2": {
+      "title": "Velocidad Relámpago",
+      "description": "Respuestas instantáneas con latencia inferior a un segundo. Mantén a tus clientes comprometidos sin demoras."
+    },
+    "feature3": {
+      "title": "Seguridad Empresarial",
+      "description": "Cifrado y cumplimiento de nivel bancario. Tus datos están protegidos con estándares de seguridad líderes en la industria. Compatible con SOC2 y GDPR."
+    },
+    "feature4": {
+      "title": "Panel de Analíticas",
+      "description": "Obtén información sobre el comportamiento de los clientes con analíticas completas. Rastrea conversaciones, mide la satisfacción y optimiza tu flujo de trabajo de soporte."
+    }
+  },
   "howItWorks": {
     "label": "Cómo Funciona",
     "title": "Comienza en tres simples pasos",
@@ -43,6 +63,175 @@
     "step3": {
       "title": "Personaliza y Lanza",
       "description": "Ajusta la apariencia de tu widget de chat para que coincida con tu marca. Entrena a tu agente IA con tus preguntas frecuentes y documentación, y luego actívalo al instante."
+    }
+  },
+  "testimonials": {
+    "label": "Testimonios",
+    "title": "Lo que dicen nuestros clientes",
+    "t1": {
+      "quote": "ChatService transformó nuestro flujo de soporte. Los tiempos de respuesta se redujeron un 80% y la satisfacción del cliente está en su punto más alto.",
+      "name": "Sarah Chen",
+      "role": "Jefa de Éxito del Cliente",
+      "company": "TechFlow"
+    },
+    "t2": {
+      "quote": "La IA entiende el contexto tan bien que la mayoría de los clientes ni se dan cuenta de que están chateando con un bot. Ha sido un cambio total para nuestro equipo.",
+      "name": "Marcus Rivera",
+      "role": "VP de Operaciones",
+      "company": "ScaleUp"
+    },
+    "t3": {
+      "quote": "Desplegamos ChatService en 12 mercados en 3 idiomas. El soporte multilingüe y el panel de analíticas son increíbles.",
+      "name": "Emma Johansson",
+      "role": "CTO",
+      "company": "NordicSaaS"
+    }
+  },
+  "pricing": {
+    "label": "Precios",
+    "title": "Precios simples y transparentes",
+    "subtitle": "Comienza gratis y escala a medida que creces. Sin tarifas ocultas.",
+    "monthly": "Mensual",
+    "yearly": "Anual",
+    "yearlyDiscount": "Ahorra 20%",
+    "mo": "/mes",
+    "popular": "Popular",
+    "free": {
+      "name": "Gratis",
+      "price": "$0",
+      "description": "Perfecto para probar ChatService",
+      "features": ["100 conversaciones/mes", "1 agente IA", "Analíticas básicas", "Soporte por email", "Acceso a la comunidad"],
+      "cta": "Comenzar"
+    },
+    "pro": {
+      "name": "Pro",
+      "priceMonthly": "$49",
+      "priceYearly": "$39",
+      "description": "Para negocios en crecimiento que necesitan más",
+      "features": ["Conversaciones ilimitadas", "5 agentes IA", "Analíticas avanzadas", "Soporte prioritario", "Marca personalizada", "Acceso API", "Integraciones"],
+      "cta": "Iniciar prueba gratuita"
+    },
+    "enterprise": {
+      "name": "Empresa",
+      "price": "Personalizado",
+      "description": "Para equipos grandes con necesidades avanzadas",
+      "features": ["Todo en Pro", "Agentes ilimitados", "SSO y SAML", "Gerente de cuenta dedicado", "Integraciones personalizadas", "Garantía de SLA", "Opción on-premise"],
+      "cta": "Contáctanos"
+    }
+  },
+  "faq": {
+    "label": "Preguntas Frecuentes",
+    "title": "Preguntas frecuentes",
+    "q1": {
+      "question": "¿Qué es ChatService?",
+      "answer": "ChatService es una plataforma de soporte al cliente impulsada por IA que te permite desplegar agentes de chat inteligentes en tu sitio web. Nuestros agentes entienden el contexto, aprenden de tu base de conocimientos y proporcionan respuestas similares a las humanas las 24 horas."
+    },
+    "q2": {
+      "question": "¿Cómo funciona la IA?",
+      "answer": "Nuestra IA está construida sobre modelos de lenguaje de última generación optimizados para soporte al cliente. Lo entrenas con tus preguntas frecuentes, documentación y conversaciones anteriores. Aprende y mejora continuamente a partir de las interacciones mientras se mantiene dentro de tus directrices definidas."
+    },
+    "q3": {
+      "question": "¿Mis datos están seguros?",
+      "answer": "Absolutamente. Usamos cifrado AES-256 de nivel bancario para datos en reposo y TLS 1.3 para datos en tránsito. Cumplimos con SOC2 Tipo II y GDPR. Tus datos nunca se usan para entrenar nuestros modelos, y puedes solicitar la eliminación completa en cualquier momento."
+    },
+    "q4": {
+      "question": "¿Qué integraciones soportan?",
+      "answer": "ChatService se integra con Slack, Zendesk, HubSpot, Salesforce, Intercom, WhatsApp y más. También ofrecemos una API REST y webhooks para que puedas conectarte con cualquier herramienta de tu stack."
+    },
+    "q5": {
+      "question": "¿Puedo probarlo antes de comprometerme?",
+      "answer": "¡Sí! Nuestro plan Gratis te permite ejecutar hasta 100 conversaciones por mes sin costo. No se requiere tarjeta de crédito. Puedes actualizar a Pro en cualquier momento para desbloquear conversaciones ilimitadas y funciones avanzadas."
+    },
+    "q6": {
+      "question": "¿Soporta múltiples idiomas?",
+      "answer": "Sí. ChatService soporta más de 50 idiomas de forma nativa. Tu agente IA puede detectar automáticamente el idioma del cliente y responder en consecuencia, haciéndolo perfecto para negocios globales."
+    }
+  },
+  "cta": {
+    "title": "¿Listo para transformar la experiencia de tus clientes?",
+    "subtitle": "Únete a miles de empresas que usan ChatService para brindar soporte instantáneo e inteligente las 24 horas.",
+    "primaryCta": "Comenzar Gratis",
+    "secondaryCta": "Contactar Ventas",
+    "reassurance": "No se requiere tarjeta de crédito"
+  },
+  "highlights": {
+    "badge": "Destacados",
+    "title": "La plataforma completa para agentes de soporte con IA",
+    "description": "ChatService1 está diseñado para crear agentes de soporte con IA que resuelven los problemas más difíciles de tus clientes mientras mejoran los resultados del negocio.",
+    "card1": {
+      "title": "Diseñado para LLMs",
+      "description": "Modelos de lenguaje con capacidades de razonamiento para respuestas efectivas a consultas complejas."
+    },
+    "card2": {
+      "title": "Diseñado para la simplicidad",
+      "description": "Crea, gestiona y despliega agentes de IA fácilmente, incluso sin habilidades técnicas.",
+      "createAgent": "Crear agente",
+      "replyWithAI": "Responder con IA"
+    },
+    "card3": {
+      "title": "Diseñado para la seguridad",
+      "description": "Disfruta de tranquilidad con cifrado robusto y estrictos estándares de cumplimiento."
+    }
+  },
+  "bentoFeatures": {
+    "badge": "Características",
+    "title": "Construye el agente de IA perfecto para tus clientes",
+    "description": "ChatService1 te da todas las herramientas que necesitas para entrenar tu agente de IA perfecto y conectarlo a tus sistemas.",
+    "card1": {
+      "title": "Sincroniza con datos en tiempo real",
+      "description": "Conecta tu agente a sistemas como herramientas de gestión de pedidos, CRMs y más para acceder sin problemas a datos desde detalles de pedidos hasta suscripciones activas.",
+      "userMessage": "¿Cuál es el estado de mi pedido?",
+      "botMessage": "Aquí está el estado de tu pedido:",
+      "orderStatus": "En camino",
+      "orderArrival": "Llega el domingo"
+    },
+    "card2": {
+      "title": "Ejecuta acciones en tus sistemas",
+      "description": "Configura acciones que tu agente puede realizar en tus sistemas o a través de nuestras integraciones, como actualizar la suscripción de un cliente o cambiar su dirección.",
+      "updateSubscription": "Actualizar suscripción",
+      "updateDatabase": "Actualizar base de datos",
+      "aiAction": "Acción IA",
+      "planUpdated": "Plan actualizado",
+      "proPlan": "Plan Pro"
+    },
+    "card3": {
+      "title": "Compara modelos de IA",
+      "description": "Experimenta con varios modelos y configuraciones para asegurarte de tener la mejor configuración para tu caso de uso.",
+      "userMessage": "No estoy seguro de qué plan es el adecuado para mí. ¿Me puedes ayudar?"
+    },
+    "card4": {
+      "title": "Escalación inteligente",
+      "description": "Dale a tu agente instrucciones en lenguaje natural sobre cuándo escalar consultas a agentes humanos.",
+      "userMessage": "Hola, me gustaría un reembolso",
+      "botMessage": "¡Claro, vamos a crear un ticket!",
+      "ticketSubmitted": "Ticket enviado",
+      "ticketNumber": "Ticket #234",
+      "ticketStatus": "Abierto",
+      "ticketTime": "hace 12 min"
+    },
+    "card5": {
+      "title": "Reportes avanzados",
+      "description": "Obtén información y optimiza el rendimiento del agente con analíticas detalladas.",
+      "topics": "Temas",
+      "accountSetup": "Configuración de cuenta",
+      "positive": "Positivo",
+      "negative": "Negativo"
+    },
+    "integrations": {
+      "title": "Funciona con tus herramientas",
+      "description": "Integra diversas fuentes de datos para enriquecer el conocimiento y las capacidades de tu agente."
+    },
+    "mini1": {
+      "title": "API",
+      "description": "APIs, bibliotecas cliente y componentes para integrar profundamente el soporte en tu producto."
+    },
+    "mini2": {
+      "title": "Marca blanca",
+      "description": "Elimina cualquier marca de ChatService1 del widget de chat."
+    },
+    "mini3": {
+      "title": "Siempre mejorando",
+      "description": "Se sincroniza con tus sistemas y aprende de interacciones anteriores."
     }
   },
   "login": {

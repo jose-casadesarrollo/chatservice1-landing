@@ -27,10 +27,10 @@ const CenteredNavbar = React.forwardRef<HTMLElement, NavbarProps>(
     const t = useTranslations("nav");
 
     const menuItems = [
-      { key: "home", label: t("home") },
-      { key: "features", label: t("features") },
-      { key: "customers", label: t("customers") },
-      { key: "aboutUs", label: t("aboutUs") },
+      { key: "home", label: t("home"), href: "#" },
+      { key: "features", label: t("features"), href: "#features" },
+      { key: "customers", label: t("customers"), href: "#testimonials" },
+      { key: "aboutUs", label: t("aboutUs"), href: "#pricing" },
     ];
 
     return (
@@ -64,17 +64,17 @@ const CenteredNavbar = React.forwardRef<HTMLElement, NavbarProps>(
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link className="text-default-500" href="#" size="sm">
+            <Link className="text-default-500" href="#features" size="sm">
               {t("features")}
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link className="text-default-500" href="#" size="sm">
+            <Link className="text-default-500" href="#testimonials" size="sm">
               {t("customers")}
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link className="text-default-500" href="#" size="sm">
+            <Link className="text-default-500" href="#pricing" size="sm">
               {t("aboutUs")}
             </Link>
           </NavbarItem>
@@ -109,7 +109,7 @@ const CenteredNavbar = React.forwardRef<HTMLElement, NavbarProps>(
         >
           {menuItems.map((item, index) => (
             <NavbarMenuItem key={item.key}>
-              <Link className="text-default-500 mb-2 w-full" href="#" size="md">
+              <Link className="text-default-500 mb-2 w-full" href={item.href} size="md">
                 {item.label}
               </Link>
               {index < menuItems.length - 1 && <Divider className="opacity-50" />}

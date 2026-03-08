@@ -306,7 +306,7 @@ export default function DeployPage() {
   const standardChannels = deployChannels.filter((c) => !c.isLarge);
 
   return (
-    <div className="flex h-[calc(100vh-180px)] flex-col overflow-auto">
+    <div className="flex flex-1 min-h-0 flex-col overflow-auto">
       {/* Header */}
       <div className="flex items-start justify-between">
         <div className="flex flex-col gap-1">

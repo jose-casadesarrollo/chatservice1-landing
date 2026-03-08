@@ -11,6 +11,7 @@ import {
 } from "@/components/dashboard/data-sources";
 import { DeployPage } from "@/components/dashboard/deploy";
 import { ActivityPage } from "@/components/dashboard/activity";
+import { ConversationsPage } from "@/components/dashboard/conversations";
 
 export default function DashboardPage() {
   const { activeTab } = useDashboardTab();
@@ -24,44 +25,46 @@ export default function DashboardPage() {
         return <ThemePlayground />;
       case "activity":
         return (
-          <div className="h-full overflow-auto p-6">
+          <div className="flex flex-1 flex-col min-h-0 overflow-auto p-6">
             <ActivityPage />
           </div>
         );
+      case "conversations":
+        return <ConversationsPage />;
       case "deploy":
         return (
-          <div className="h-full overflow-auto p-6">
+          <div className="flex flex-1 flex-col min-h-0 overflow-auto p-6">
             <DeployPage />
           </div>
         );
       // Data Sources pages
       case "sources-files":
         return (
-          <div className="h-full overflow-auto p-6">
+          <div className="flex flex-1 flex-col min-h-0 overflow-auto p-6">
             <FilesPage />
           </div>
         );
       case "sources-text-snippets":
         return (
-          <div className="h-full overflow-auto p-6">
+          <div className="flex flex-1 flex-col min-h-0 overflow-auto p-6">
             <TextSnippetsPage />
           </div>
         );
       case "sources-website":
         return (
-          <div className="h-full overflow-auto p-6">
+          <div className="flex flex-1 flex-col min-h-0 overflow-auto p-6">
             <WebsitePage />
           </div>
         );
       case "sources-qa":
         return (
-          <div className="h-full overflow-auto p-6">
+          <div className="flex flex-1 flex-col min-h-0 overflow-auto p-6">
             <QAPage />
           </div>
         );
       case "sources-integrations":
         return (
-          <div className="h-full overflow-auto p-6">
+          <div className="flex flex-1 flex-col min-h-0 overflow-auto p-6">
             <IntegrationsPage />
           </div>
         );
